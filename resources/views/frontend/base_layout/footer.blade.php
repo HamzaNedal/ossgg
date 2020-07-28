@@ -40,7 +40,7 @@
                                             <li style="text-transform: capitalize;">{{ $user->name }}</li>
                                         @endpush
                                         @else
-                                        <li>{{ $user->name }}</li>
+                                        <li style="text-transform: capitalize;">{{ $user->name }}</li>
                                     @endif
                                     @endforeach
                                 @endif

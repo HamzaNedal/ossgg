@@ -91,5 +91,15 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function getNews()
+    {
+       $posts =  Post::paginate(9);
+       $static_page = StaticPage::get();
+       $static_page = array_column($static_page->toArray(),'value','name');
+       $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
+
+        return view('frontend.news',compact('posts','static_page','users'));
+    }
    
 }

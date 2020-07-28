@@ -1015,3 +1015,33 @@ button.btn.btn-warning {
     border-radius: 0;
     background-color: transparent !important;
 }
+
+.paginations{
+    padding: 30px 0;
+}
+
+.paginations .page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #ffffff;
+    background-color: #ffd922;
+    border: 1px solid #ffffff;
+}
+
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #d39e00;
+    border-color: #d39e00;
+}
+.page-item.disabled .page-link {
+    color: #fff;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #ffd922;
+    border-color: #dee2e6;
+}
