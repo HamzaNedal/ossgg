@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\ContactUs;
 use App\Models\Members;
@@ -53,7 +54,6 @@ class HomeController extends Controller
     {
         $input = $request->all();
         unset($input['_token']);
-        // dd($input);
         request()->validate([
             'name' => 'required|string',
             'country' => 'required|string',
@@ -99,7 +99,22 @@ class HomeController extends Controller
        $static_page = array_column($static_page->toArray(),'value','name');
        $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
 
-        return view('frontend.news',compact('posts','static_page','users'));
+        return view('frontend.news.news',compact('posts','static_page','users'));
+    }
+
+
+    public function ditailsNews($id)
+    {
+        $id = (int) $id;
+        $post = Post::find($id);
+        if (!$post) {
+            return redirect()->back();
+        }
+        $static_page = StaticPage::get();
+        $static_page = array_column($static_page->toArray(),'value','name');
+        $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
+        $posts = Post::with('category')->where(['category_id'=>$post->category_id])->where('id','<>',$post->id)->orderBy('created_at','desc')->limit(2)->get();
+        return view('frontend.news.details',compact('post','static_page','posts','users'));
     }
    
 }

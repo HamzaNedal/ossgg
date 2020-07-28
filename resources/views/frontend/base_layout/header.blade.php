@@ -12,4 +12,4 @@
 <link rel="stylesheet" href="{{ asset('frontend') }}/css/style.css">
 
 <!-- <script src="js/scrollreveal.min.js"></script> -->
-<title>OSSGG</title>
+<title>@yield('title')</title>

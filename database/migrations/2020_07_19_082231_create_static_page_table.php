@@ -18,7 +18,7 @@ class CreateStaticPageTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('name');
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

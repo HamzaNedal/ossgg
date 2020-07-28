@@ -50,9 +50,9 @@ class PostController extends Controller
         ]);
         $input = request()->all();
         $detail = $request->description;
-        // libxml_use_internal_errors(true);
-        $dom = new \domdocument();
-        $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_use_internal_errors(true);
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->loadHtml( mb_convert_encoding($input['description'], 'HTML-ENTITIES', 'UTF-8'));
         $images = $dom->getElementsByTagName('img');
         
         foreach ($images as $count => $image) {
@@ -74,7 +74,9 @@ class PostController extends Controller
             request('image')->move(public_path() . '/posts/', $name);
             $input['image'] = $name;
         }
-        $detail = $dom->savehtml();
+        // $detail = $dom->savehtml();
+        $detail= $dom->savehtml($dom->documentElement).PHP_EOL . PHP_EOL;
+
         Post::create([
             'title' => $input['title'],
             'description'=>$detail,
@@ -126,10 +128,11 @@ class PostController extends Controller
         $input = $request->all();
         $id = (int) $id;
         $request = request();
-        // $detail = $request->description;
+
         libxml_use_internal_errors(true);
-        $dom = new \domdocument();
-        $dom->loadHtml( $input['description'] , LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->loadHtml( mb_convert_encoding($input['description'], 'HTML-ENTITIES', 'UTF-8'));
+
         $images = $dom->getElementsByTagName('img');
         if (request()->hasfile('image')) {
             $name = request('image')->getClientOriginalName();
@@ -137,6 +140,7 @@ class PostController extends Controller
             request('image')->move(public_path() . '/posts/', $name);
             $input['image'] = $name;
         }
+
         foreach ($images as $count => $image) {
             $src = $image->getAttribute('src');
             
@@ -150,7 +154,8 @@ class PostController extends Controller
             }
         }
         
-        $input['description'] = $dom->savehtml();
+        $input['description'] = $dom->savehtml($dom->documentElement).PHP_EOL . PHP_EOL;
+
         unset($input['_token']);
         unset($input['_method']);
         array_filter($input);

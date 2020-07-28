@@ -27,7 +27,7 @@
                 </div>
                 <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown">
                     <ul class="navbar-nav mobile  ml-auto mr-3">
-                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('frontend.home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About OSSGG</a></li>
                         <li class="nav-item"><a class="nav-link" href="#global">Our Global Group</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">DnA Portfolio</a></li>

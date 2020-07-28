@@ -1,4 +1,5 @@
 @extends('frontend.layouts.app')
+@section('title', 'Home')
 
 @section('content')
 @push('css')
@@ -13,45 +14,7 @@
                <section class="wow flipInX">
                 <div class="container">
                     <div class="owl-carousel owl-theme slider">
-                        @empty($sliders->toArray())
-                        <div class="item item-01">
-                            <div class="row align-items-center h-100">
-                                <div class="col-lg-6 col-md-12 col-sm-12 slider-lfet">
-                                    <div class="caption">
-                                        <div class="title">
-                                            <h4>Big Title</h4>
-                                            <span class="circle"></span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, nemo aspernatur
-                                            repellendus rerum consequuntur debitis.</p>
-                                        <a href="#" class="btn btn-one">Learn More</a>
-                                        <a href="#contact" class="btn btn-tow">Contact Us</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <div class="img-containt">
-                                        <img src="{{ asset('frontend') }}/img/Group 104.png" class="img-fluid">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item item-02">
-                            <div class="row align-items-center h-100">
-                                <div class="col-md-12">
-                                    <div class="caption">
-                                        <div class="title">
-                                            <h4>Big Title</h4>
-                                            <span class="circle"></span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, nemo aspernatur
-                                            repellendus rerum consequuntur debitis.</p>
-                                        <a href="#" class="btn btn-one">Learn More</a>
-                                        <a href="#contact" class="btn btn-tow">Contact Us</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endempty
+                
                         @foreach ($sliders as $slider)
                         @if ($slider->image)
                         <div class="item item-01"  style="background-image: url('{{ asset('background_image/'.$slider->background_image) }}')">
@@ -63,7 +26,9 @@
                                             <span class="circle"></span>
                                         </div>
                                         <p>{{$slider->description}}</p>
-                                        <a href="#" class="btn btn-one">Learn More</a>
+                                        @if ($slider->link)
+                                           <a href="{{ $slider->link }}" class="btn btn-one">Learn More</a>
+                                        @endif
                                         <a href="#contact" class="btn btn-tow">Contact Us</a>
                                     </div>
                                 </div>
@@ -84,7 +49,9 @@
                                             <span class="circle"></span>
                                         </div>
                                         <p>{{$slider->description}}.</p>
-                                        <a href="#" class="btn btn-one">Learn More</a>
+                                        @if ($slider->link)
+                                        <a href="{{ $slider->link }}" class="btn btn-one">Learn More</a>
+                                     @endif
                                         <a href="#contact" class="btn btn-tow">Contact Us</a>
                                     </div>
                                 </div>
@@ -210,7 +177,7 @@
                     <div class="item">
                         <div class="row justify-content-center align-items-center slide">
                             <div class="col-lg-4 col-md-4 col-sm-12  mb-5">
-                                <img src="{{ asset('company/'.$company->logo) }}" alt="" class="wow fadeInUpBig" style="border-radius:300px">
+                                <img src="{{ asset('company/'.$company->logo) }}" alt="" class="wow fadeInUpBig">
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="title wow jackInTheBox">
@@ -352,26 +319,33 @@
                 </div>
                 <div class="row">
                     @foreach ($posts as $post)
+                    
+
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="card news-card" style="border: none;">
-                            <a href="#"><img src="{{ asset('posts/'.$post->image) }}" class="card-img-top wow bounceIn" ></a>
+                            <a href="{{ route('details.news', ['id'=>$post->id]) }}">
+                                <div class="img-card card-img-top wow bounceIn"
+                                    style="background-image:url({{ asset('posts/'.$post->image) }});">
+                                </div>
+                            </a>
                             <div class="card-body">
-                                <span class="wow slideInLeft" style="text-transform: capitalize">{{ $post->category->name }}</span>
-                                <a href="#">
-                                    <h5 class="card-title wow slideInRight"  style="text-transform: capitalize">{{ $post->title }}</h5>
+                                <span class="wow slideInLeft">{{ $post->category->name }}</span>
+                                <a href="{{ route('details.news', ['id'=>$post->id]) }}">
+                                    <h5 class="card-title wow slideInRight">{{ $post->title }}</h5>
                                 </a>
                                 @php
-                                  $post->description =  strip_tags($post->description);
-                                  $post->description = html_entity_decode($post->description,ENT_IGNORE,"UTF-8");
-                                  $post->description = Str::substr($post->description, 0, 200)
-                                @endphp
-                                {{-- {{ dd(Str::substr($post->description, 0, 30)) }} --}}
-                                <p class="card-text wow slideInLeft">{{ $post->description }}.... </p>
-                                <a href="#" class="btn wow zoomIn">Read More</a>
+                                     $post->description =  strip_tags($post->description);
+                                     $post->description = html_entity_decode($post->description,ENT_IGNORE,"UTF-8");
+                                     $post->description = Str::substr($post->description, 0, 200)
+                                  @endphp
+                              <p class="card-text wow slideInLeft">{{ $post->description }}.... </p>
+                              <a href="{{ route('details.news', ['id'=>$post->id]) }}" class="btn wow zoomIn">Read More</a>
                             </div>
                         </div>
                     </div>
                     @endforeach
+
+
                     {{-- <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="card news-card" style="border: none;">
                             <a href="#"><img src="{{ asset('frontend') }}/img/alexandre-debieve-FO7JIlwjOtU-unsplash.png" class="card-img-top wow bounceIn"></a>
@@ -415,6 +389,11 @@
                         </div>
                     </div> --}}
                 </div>
+
+                <div class="row text-center">
+                    <a href="{{ route('news') }}" class="btn btn-warning" style="margin: auto;"> View All News & Events</a>
+                </div>
+
             </div>
         </section>           
         @endif
@@ -452,9 +431,7 @@
                     @endforeach --}}
                         @foreach ($partnaers as $partnaer)
                         <div class="item">
-                            <a href="{{ $partnaer->link }}"><img style="
-                                border-radius: 300px;
-                            " src="{{ asset('partnaers/'.$partnaer->logo) }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
+                            <a href="{{ $partnaer->link }}"><img src="{{ asset('partnaers/'.$partnaer->logo) }}" title="{{ $partnaer->title }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
                         </div>
                         @endforeach
                   

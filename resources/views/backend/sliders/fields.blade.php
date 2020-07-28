@@ -9,7 +9,10 @@
       <label for="description">Description</label>
       <textarea class="form-control" name="description" id="description" cols="30" rows="10"  placeholder="enter description to slider">@isset($slider){{$slider->description}}@endisset</textarea>
       </div>
-
+      <div class="form-group">
+        <label for="link">Link</label>
+        <input type="text" class="form-control" id="link" @isset($slider)  value="{{ $slider->link }}" @endisset  name="link" placeholder="enter link">
+      </div>
     <div class="form-group">
       <label for="photo">Image(optional)</label>
       <div class="input-group">

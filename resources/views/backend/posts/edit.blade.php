@@ -41,6 +41,8 @@
     </div>
     @push('js')
     <script src="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="{{ asset('js/summernote-ext-rtl.js') }}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
              $('.textarea').summernote({

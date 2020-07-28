@@ -163,6 +163,10 @@ class StaticPageController extends Controller
             }
            $name = str_replace('_',' ',$name);
             $keyExist =  StaticPage::where(['key' => 'about_us','name'=>$name])->first();
+            // dd($name == );
+            if($name == 'Who are OSSGG?'){
+                $value['status'] = 1;
+            }
             if ($keyExist) {
                $issetFile = $value['file'] ?? false;
                if(!$issetFile){

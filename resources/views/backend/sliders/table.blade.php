@@ -14,6 +14,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Link</th>
                         <th>Image</th>
                         <th>Backgound Image</th>
                         <th>Created at </th>
@@ -25,6 +26,7 @@
                     <tr>
                     <td>{{ $slider->title }}</td>
                     <td>{{ $slider->description }}</td>
+                    <td>{{ $slider->link }}</td>
                     <td><img src="{{ asset('image/'.$slider->image) }}" style="width: 60px;hieght:60px" alt=""></td>
                     <td><img src="{{ asset('background_image/'.$slider->background_image) }}" style="width: 60px;hieght:60px" alt=""></td>
                     <td>{{ $slider->created_at }}</td>

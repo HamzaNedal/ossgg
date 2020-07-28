@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('frontend.home');
 Route::post('/', 'HomeController@storeServiceResquests')->name('storeServiceResquests');
 Route::post('/contact-us', 'HomeController@storeContactUs')->name('storeContactUs');
-Route::get('/news', 'HomeController@getNews')->name('news');
+Route::get('/all-news', 'HomeController@getNews')->name('news');
+Route::get('/details/news/{id}', 'HomeController@ditailsNews')->name('details.news');
 
 
 

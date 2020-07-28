@@ -38,12 +38,12 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-       $input = $request->all();
-        request()->validate([
+       $input =  request()->validate([
             'title' => 'required|string',
             'description' => 'required|string',
             'image' => 'image|nullable',
             'background_image' => 'required|image',
+            'link'=>'nullable|url|max:255',
         ]);
 
         if (request()->hasfile('background_image')) {
@@ -104,19 +104,18 @@ class SliderController extends Controller
     {
         $id = (int) $id;
         $slider = Slider::find($id);
-        // dd($request->all());
+    
         if (!$slider) {
             return redirect()->back()->with('error', 'Slider not found');
         }
-        $input = $request->all();
-        request()->validate([
-            'title' => 'string',
-            'description' => 'string',
-            'image' => 'image|nullable',
-            'background_image' => 'image',
+        $input =  request()->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'background_image' => 'sometimes|image',
+            'image' => 'sometimes|image',
+            'link'=>'nullable|url|max:255',
         ]);
-        unset($input['_token']);
-        unset($input['_method']);
+
         array_filter($input);
         
         if (request()->hasfile('background_image')) {

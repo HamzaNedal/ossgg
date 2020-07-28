@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'News')
 
 @section('content')
         <!-- Start News -->
@@ -13,21 +14,23 @@
                     @foreach ($posts as $post)
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="card news-card" style="border: none;">
-                            <a href="#"><img src="{{ asset('posts/'.$post->image) }}"
-                                    class="card-img-top wow bounceIn"></a>
+                            <a href="#">
+                                <div class="img-card card-img-top wow bounceIn"
+                                    style="background-image:url({{ asset('posts/'.$post->image) }});">
+                                </div>
+                            </a>
                             <div class="card-body">
                                 <span class="wow slideInLeft">{{ $post->category->name }}</span>
                                 <a href="#">
-                                    <h5 class="card-title wow slideInRight">{{ $post->name }}</h5>
+                                    <h5 class="card-title wow slideInRight">{{ $post->title }}</h5>
                                 </a>
                                 @php
-                                $post->description =  strip_tags($post->description);
-                                $post->description = html_entity_decode($post->description,ENT_IGNORE,"UTF-8");
-                                $post->description = Str::substr($post->description, 0, 200)
-                              @endphp
-                              {{-- {{ dd(Str::substr($post->description, 0, 30)) }} --}}
+                                     $post->description =  strip_tags($post->description);
+                                     $post->description = html_entity_decode($post->description,ENT_IGNORE,"UTF-8");
+                                     $post->description = Str::substr($post->description, 0, 200)
+                                  @endphp
                               <p class="card-text wow slideInLeft">{{ $post->description }}.... </p>
-                              <a href="#" class="btn wow zoomIn">Read More</a>
+                              <a href="{{ route('details.news', ['id'=>$post->id]) }}" class="btn wow zoomIn">Read More</a>
                             </div>
                         </div>
                     </div>

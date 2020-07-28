@@ -115,7 +115,7 @@
       </div>
     </li> --}}
     <li class="nav-item">
-      <a data-widget="control-sidebar" data-slide="" href="{{ route('frontend.home') }}">
+      <a href="{{ route('frontend.home') }}">
         {{-- <i class="fas fa-th-large"></i> --}}
         Go To Website
       </a>
