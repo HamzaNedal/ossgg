@@ -15,11 +15,17 @@
       <small><a href="{{ route('admin.category.create') }}">Add category</a></small>
    </div>
        <div class="form-group">
-      <label for="photo">Image(The image must be size 336x504)</label>
+      <label for="photoInput">Image(The image must be size 336x504)</label>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="" id="photo" name="image">
-          {{-- <label class="custom-file-label" for="image">Add Image</label> --}}
+          <input type="file" class="" id="photoInput" name="image">
+          @isset($post)
+            <img src="{{ asset('posts/'.$post->image) }}" alt="" style="width: 50px;" id="image"> 
+            <img src="{{ asset('posts/'.$post->image) }}" class="d-none backImage" style="width: 50px;"> 
+            <i class="fa fa-undo undoImage"  aria-hidden="true" alt='undo' style="margin-left: 8px;cursor: pointer;"></i>
+            @else
+            <img src="#" class="d-none" alt="" style="width: 50px;" id="image">
+          @endisset
         </div>
 
       </div>

@@ -39,7 +39,7 @@
         </div>
     </div>
     @push('js')
-    <script src="{{ asset('bakend') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
              $('.textarea').summernote({
@@ -51,6 +51,22 @@
                   }
                },
            });
+        });
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+            $('#image').attr('src', e.target.result);
+            $('#image').removeClass('d-none');
+            }
+            
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+        }
+
+        $("#photoInput").change(function() {
+            readURL(this);
         });
   </script>
     @endpush

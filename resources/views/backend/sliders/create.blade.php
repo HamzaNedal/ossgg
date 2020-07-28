@@ -36,4 +36,28 @@
             </div>
         </div>
     </div>
+    @push('js')
+    <script>
+    function readURL(input,id) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+            $(`#${id}`).attr('src', e.target.result);
+            $(`#${id}`).removeClass('d-none');
+            }
+            
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+        $("#photoInput").change(function() {
+            readURL(this,'image');
+        });
+        $("#background-image").change(function() {
+            readURL(this,'background_image');
+        });
+    </script>
+@endpush
+
 @endsection

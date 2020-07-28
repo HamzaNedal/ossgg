@@ -14,8 +14,15 @@
       <label for="photo">Image(optional)</label>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="photo" name="image">
-          <label class="custom-file-label" for="image">Add Image</label>
+          <input type="file"  id="photoInput" name="image">
+          {{-- <label class="custom-file-label" for="image">Add Image</label> --}}
+          @isset($slider)
+          <img src="{{ asset('image/'.$slider->image) }}" alt="" class="returnImage" style="width: 50px;" id="image"> 
+          <img src="{{ asset('image/'.$slider->image) }}" class="d-none backImage" style="width: 50px;"> 
+          <i class="fa fa-undo undoImage"  aria-hidden="true" alt='undo' style="margin-left: 8px;cursor: pointer;"></i>
+          @else
+          <img src="#" class="d-none" alt="" style="width: 50px;" id="image">
+        @endisset
         </div>
 
       </div>
@@ -24,8 +31,15 @@
       <label for="background-image">Background Image</label>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="background-image" name="background_image">
-          <label class="custom-file-label" for="image">Add Background Image</label>
+          <input type="file"  id="background-image" name="background_image">
+          {{-- <label class="custom-file-label" for="image">Add Background Image</label> --}}
+          @isset($slider)
+          <img src="{{ asset('background_image/'.$slider->background_image) }}" alt="" style="width: 50px;" class="returnImage" id="background_image"> 
+          <img src="{{ asset('background_image/'.$slider->background_image) }}" class="d-none backImage" style="width: 50px;"> 
+          <i class="fa fa-undo undoImage"  aria-hidden="true" alt='undo' style="margin-left: 8px;cursor: pointer;"></i>
+          @else
+          <img src="#" class="d-none" alt="" style="width: 50px;" id="background_image">
+        @endisset
         </div>
 
       </div>

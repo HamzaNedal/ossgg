@@ -43,8 +43,15 @@
       <label for="photo">Image</label>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="photo" name="image">
-          <label class="custom-file-label" for="image">Add Image</label>
+          <input type="file" class="" id="photoInput" name="image">
+          {{-- <label class="custom-file-label" for="logo">Add logo</label> --}}
+          @isset($user)
+          <img src="{{ asset('profile/'.$user->image) }}" alt="" style="width: 50px;" id="image"> 
+          <img src="{{ asset('profile/'.$user->image) }}" class="d-none backImage" style="width: 50px;"> 
+          <i class="fa fa-undo undoImage"  aria-hidden="true" alt='undo' style="margin-left: 8px;cursor: pointer;"></i>
+          @else
+          <img src="#" class="d-none" alt="" style="width: 50px;" id="image">
+        @endisset
         </div>
 
       </div>

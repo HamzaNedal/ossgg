@@ -37,4 +37,35 @@
             </div>
         </div>
     </div>
+    @push('js')
+    <script>
+    function resetFile() { 
+        const file = 
+            document.getElementById('photoInput'); 
+        file.value = ''; 
+    } 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+            $('#image').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#photoInput").change(function() {
+        readURL(this);
+    });
+    $(document).on('click','.undoImage',function(){
+        // console.log('asfd');
+        resetFile();
+        src = $('.backImage').attr('src');
+        $('#image').attr('src', src);
+       
+    })
+    </script>
+@endpush
 @endsection
