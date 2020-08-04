@@ -18,7 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('link');
-            $table->string('logo');
+            $table->string('image');
             $table->string('file')->nullable();
             $table->timestamps();
             $table->softDeletes();
