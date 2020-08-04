@@ -7,6 +7,8 @@ use App\Models\Members;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use Yajra\Datatables\Datatables;
+
 class MembersContrllers extends Controller
 {
     /**
@@ -16,10 +18,18 @@ class MembersContrllers extends Controller
      */
     public function index()
     {
-        $members = Members::get();
-        return view('backend.members.index', compact('members'));
+        // $members = Members::get();
+        return view('backend.members.index');
     }
 
+    protected function datatable(){
+        $members = Members::get();
+        $route = 'member';
+         return Datatables::of($members)->addColumn('actions', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->rawColumns(['actions'])
+         ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

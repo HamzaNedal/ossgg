@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Services\ImageService;
+use Yajra\Datatables\Datatables;
 
 class PostController extends Controller
 {
@@ -20,11 +21,21 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
-        $categories = Category::get();
-        return view('backend.posts.index', compact('posts', 'categories'));
+        return view('backend.posts.index');
     }
-
+    protected function datatable(){
+        $posts = Post::get();
+        $route = 'post';
+        $path = 'posts';
+        return Datatables::of($posts)->addColumn('action', function ($data) use($route) {
+            return view('backend.datatables.actions',compact('data','route'));
+        })->addColumn('image', function ($data) use ($path){
+            return view('backend.datatables.image',compact('data','path'));
+       })->addColumn('category', function ($data){
+        return $data->category->name;
+         })->rawColumns(['category','image','action'])
+        ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

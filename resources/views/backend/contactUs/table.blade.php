@@ -17,29 +17,7 @@
                         {{-- <th colspan="3">Acation</th> --}}
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($contacts as $contact)
-                    <tr>
-                    <td>{{ $contact->name }}</td>
-                    <td>{{ $contact->email }}</td>
-                    <td>{{ $contact->subject }}</td>
-                    <td>{{ $contact->message }}</td>
-                    <td>{{ $contact->created_at }}</td>
-                        {{-- <td>
-                            <form action="{{ route('admin.contactUs.destroy', ['id'=>$contact->id]) }}" method="post">
-                                @method('delete')
-                                @csrf
-                            {{-- <div class='btn-group'> --}}
-                                {{-- <a href="{{ route('post.show', [$user->id]) }}" class='btn btn-default btn-xs'><i class="fa fa-eye"></i></a> --}}
-                                {{-- <a href="{{ route('admin.post.edit', [$post->id]) }}" class='btn btn-default btn-xs'><i class="fa fa-edit"></i></a> --}}
-                                {{-- <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('هل انت متأكد من الحذف ؟')"><i class="fa fa-trash"></i></button> --}}
-                                {{-- {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('هل انت متأكد من الحذف ؟')"]) !!} --}}
-                            {{-- </div> --}}
-                        {{-- </form> --}}
-                        {{-- </td> --}}
-                    </tr>
-                @endforeach
-                </tbody>
+          
             </table>
         </div>
         <!-- /.card-body -->

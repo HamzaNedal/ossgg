@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\ImageService;
+use Yajra\Datatables\Datatables;
 class UserController extends Controller
 {
     /**
@@ -18,10 +19,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        return view('backend.users.index',compact('users'));
+        return view('backend.users.index');
     }
 
+    protected function datatable(){
+       $users = User::get();
+       $route = 'users';
+       $path = 'profile';
+       return Datatables::of($users)->addColumn('action', function ($data) use($route) {
+           return view('backend.datatables.actions',compact('data','route'));
+       })->addColumn('image', function ($data) use ($path){
+          return view('backend.datatables.image',compact('data','path'));
+      })->rawColumns(['image','action'])
+       ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

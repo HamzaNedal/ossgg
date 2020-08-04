@@ -12,4 +12,7 @@ class ContactUs extends Model
     protected $fillable = [
         'name','email','subject','message'
     ];
+    protected $casts = [
+        'created_at'=>'date:Y-m-d h:m:s'
+    ];
 }

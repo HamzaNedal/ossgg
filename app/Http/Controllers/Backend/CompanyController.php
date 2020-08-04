@@ -8,15 +8,25 @@ use Illuminate\Http\Request;
 use app\Http\Requests\CreateCompanyRequest;
 use app\Http\Requests\UpdateCompanyRequest;
 use App\Services\ImageService;
+use Yajra\Datatables\Datatables;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::get();
-        return view('backend.companies.index', compact('companies'));
+        return view('backend.companies.index');
     }
-
+    protected function datatable(){
+        $companies = Company::get();
+        $route = 'company';
+        $path = 'company';
+         return Datatables::of($companies)->addColumn('action', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->addColumn('image', function ($data) use ($path){
+            return view('backend.datatables.image',compact('data','path'));
+        })->rawColumns(['image','action'])
+         ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

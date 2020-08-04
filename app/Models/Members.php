@@ -13,4 +13,7 @@ class Members extends Model
     protected $fillable = [
         'name', 
     ];
+    protected $casts = [
+        'created_at'=>'date:Y-m-d h:m:s'
+    ];
 }

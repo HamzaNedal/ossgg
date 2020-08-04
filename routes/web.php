@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
     Route::get('/home', [BackendHomeController::class,'index'])->name('admin.home');
     //User
     Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
+    Route::get('/users/datatable', [UserController::class,'datatable'])->name('admin.users.datatable');
     Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
     Route::post('/users', [UserController::class,'store'])->name('admin.users.store');
     Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
@@ -49,6 +50,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //members
     Route::get('/members', [MembersContrllers::class,'index'])->name('admin.member.index');
+    Route::get('/members/datatable', [MembersContrllers::class,'datatable'])->name('admin.member.datatable');
     Route::get('/member/create', [MembersContrllers::class,'create'])->name('admin.member.create');
     Route::post('/members', [MembersContrllers::class,'store'])->name('admin.member.store');
     Route::put('/member/{id}', [MembersContrllers::class,'update'])->name('admin.member.update');
@@ -58,6 +60,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //Category
     Route::get('/categories', [CategoryController::class,'index'])->name('admin.category.index');
+    Route::get('/category/datatable', [CategoryController::class,'datatable'])->name('admin.category.datatable');
     Route::get('/category/create', [CategoryController::class,'create'])->name('admin.category.create');
     Route::post('/category', [CategoryController::class,'store'])->name('admin.category.store');
     Route::put('/category/{id}', [CategoryController::class,'update'])->name('admin.category.update');
@@ -67,6 +70,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //posts
     Route::get('/posts', [PostController::class,'index'])->name('admin.post.index');
+    Route::get('/posts/datatable', [PostController::class,'datatable'])->name('admin.post.datatable');
     Route::get('/post/create', [PostController::class,'create'])->name('admin.post.create');
     Route::post('/posts', [PostController::class,'store'])->name('admin.post.store');
     Route::get('/post/{id}/edit', [PostController::class,'edit'])->name('admin.post.edit');
@@ -76,6 +80,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //companies
     Route::get('/companies', [CompanyController::class,'index'])->name('admin.company.index');
+    Route::get('/company/datatable', [CompanyController::class,'datatable'])->name('admin.company.datatable');
     Route::get('/company/create', [CompanyController::class,'create'])->name('admin.company.create');
     Route::post('/companies', [CompanyController::class,'store'])->name('admin.company.store');
     Route::get('/company/{id}/edit', [CompanyController::class,'edit'])->name('admin.company.edit');
@@ -85,6 +90,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //partnaers
     Route::get('/partnaers', [PartnaersControlle::class,'index'])->name('admin.partnaer.index');
+    Route::get('/partnaer/datatable', [PartnaersControlle::class,'datatable'])->name('admin.partnaer.datatable');
     Route::get('/partnaer/create', [PartnaersControlle::class,'create'])->name('admin.partnaer.create');
     Route::post('/partnaers', [PartnaersControlle::class,'store'])->name('admin.partnaer.store');
     Route::get('/partnaer/{id}/edit', [PartnaersControlle::class,'edit'])->name('admin.partnaer.edit');
@@ -94,6 +100,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //sectors
     Route::get('/sectors', [SectorController::class,'index'])->name('admin.sector.index');
+    Route::get('/sector/datatable', [SectorController::class,'datatable'])->name('admin.sector.datatable');
     Route::get('/sector/create', [SectorController::class,'create'])->name('admin.sector.create');
     Route::post('/sector', [SectorController::class,'store'])->name('admin.sector.store');
     Route::get('/sector/{id}/edit', [SectorController::class,'edit'])->name('admin.sector.edit');
@@ -103,6 +110,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //sliders
     Route::get('/sliders', [SliderController::class,'index'])->name('admin.slider.index');
+    Route::get('/slider/datatable', [SliderController::class,'datatable'])->name('admin.slider.datatable');
     Route::get('/slider/create', [SliderController::class,'create'])->name('admin.slider.create');
     Route::post('/sliders', [SliderController::class,'store'])->name('admin.slider.store');
     Route::get('/slider/{id}/edit', [SliderController::class,'edit'])->name('admin.slider.edit');
@@ -112,6 +120,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //services
     Route::get('/services', [ServiceController::class,'index'])->name('admin.service.index');
+    Route::get('/service/datatable', [ServiceController::class,'datatable'])->name('admin.service.datatable');
     Route::get('/service/create', [ServiceController::class,'create'])->name('admin.service.create');
     Route::post('/services', [ServiceController::class,'store'])->name('admin.service.store');
     Route::get('/service/{id}/edit', [ServiceController::class,'edit'])->name('admin.service.edit');
@@ -123,6 +132,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
 
     //contactUs
     Route::get('/contact-us', [ContactUsController::class,'index'])->name('admin.contactUs.index');
+    Route::get('/contactUs/datatable', [ContactUsController::class,'datatable'])->name('admin.contactUs.datatable');
     Route::delete('/contact-us/{id}', [ContactUsController::class,'destroy'])->name('admin.contactUs.destroy');
     //end contactUs
 

@@ -12,7 +12,9 @@ class Post extends Model
     protected $fillable = [
         'title', 'description', 'category_id','image',
     ];
-
+    protected $casts = [
+      'created_at'=>'date:Y-m-d h:m:s'
+  ];
 
     public function category()
     {

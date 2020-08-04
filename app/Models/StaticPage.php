@@ -13,4 +13,7 @@ class StaticPage extends Model
     protected $fillable = [
         'key','name','value','status','icon'
     ];
+    protected $casts = [
+        'created_at'=>'date:Y-m-d h:m:s'
+    ];
 }

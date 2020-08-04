@@ -14,7 +14,9 @@ class ServiceRequests extends Model
         'name','country','phone_country_code','phone_no','email','name_of_project','sector_of_project_id','service_id'
         ,'short_description','file'
     ];
-
+    protected $casts = [
+        'created_at'=>'date:Y-m-d h:m:s'
+    ];
 
     public function getService()
     {

@@ -8,9 +8,6 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('backend') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ asset('backend') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ asset('backend') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <!-- ChartJS -->
 <script src="{{ asset('backend/plugins/') }}/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->

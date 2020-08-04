@@ -7,6 +7,8 @@ use App\Models\Sector;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateSectorRequest;
 use App\Http\Requests\UpdateSectorRequest;
+use Yajra\DataTables\Facades\DataTables;
+
 class SectorController extends Controller
 {
     /**
@@ -16,10 +18,16 @@ class SectorController extends Controller
      */
     public function index()
     {
-        $sectors = Sector::get();
-        return view('backend.sectors.index', compact('sectors'));
+        return view('backend.sectors.index');
     }
-
+    protected function datatable(){
+        $sectors = Sector::get();
+        $route = 'sector';
+         return DataTables::of($sectors)->addColumn('actions', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->rawColumns(['actions'])
+         ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

@@ -37,6 +37,7 @@
         </div>
     </div>
     @push('js')
+
     <script>
     function readURL(input) {
     if (input.files && input.files[0]) {
@@ -55,5 +56,7 @@
         readURL(this);
     });
     </script>
+
+   
 @endpush
 @endsection

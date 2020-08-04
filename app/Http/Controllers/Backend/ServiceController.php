@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use Yajra\DataTables\Facades\DataTables;
+
 class ServiceController extends Controller
 {
     /**
@@ -18,10 +20,16 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::get();
-        return view('backend.services.index', compact('services'));
+        return view('backend.services.index');
     }
-
+    protected function datatable(){
+        $sectors = Service::get();
+        $route = 'service';
+         return DataTables::of($sectors)->addColumn('actions', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->rawColumns(['actions'])
+         ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

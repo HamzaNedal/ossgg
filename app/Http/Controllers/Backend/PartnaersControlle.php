@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use app\Http\Requests\CreatePartnaerRequest;
 use app\Http\Requests\UpdatePartnaerRequest;
 use App\Services\ImageService;
+use Yajra\Datatables\Datatables;
+
 class PartnaersControlle extends Controller
 {
     /**
@@ -17,8 +19,19 @@ class PartnaersControlle extends Controller
     public function index()
     {
         $partnaers = Partnaers::get();
-        return view('backend.partnaers.index', compact('partnaers'));    }
-
+        return view('backend.partnaers.index', compact('partnaers'));
+    }
+    protected function datatable(){
+        $partnaers = Partnaers::get();
+        $route = 'partnaer';
+        $path = 'partnaers';
+        return Datatables::of($partnaers)->addColumn('action', function ($data) use($route) {
+            return view('backend.datatables.actions',compact('data','route'));
+        })->addColumn('image', function ($data) use ($path){
+           return view('backend.datatables.image',compact('data','path'));
+       })->rawColumns(['image','action'])
+        ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,7 +49,7 @@ class PartnaersControlle extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePartnaerRequest $request,ImageService $imageService)
     {
          $input = request()->except(['_token','_method']);
         if (request()->hasfile('logo')) {
@@ -77,7 +90,7 @@ class PartnaersControlle extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id,ImageService $imageService)
+    public function update(UpdatePartnaerRequest $request, $id,ImageService $imageService)
     {
         $id = (int) $id;
         $input = $request->except(['_token','_method']);

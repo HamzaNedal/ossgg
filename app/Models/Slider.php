@@ -13,4 +13,7 @@ class Slider extends Model
     protected $fillable = [
         'title','description','image','background_image'
     ];
+    protected $casts = [
+        'created_at'=>'date:Y-m-d h:m:s'
+    ];
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Yajra\Datatables\Datatables;
+
 class CategoryController extends Controller
 {
     /**
@@ -16,10 +18,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
-        return view('backend.categories.index', compact('categories'));
+        // $categories = Category::get();
+        return view('backend.categories.index');
     }
 
+    protected function datatable(){
+        $categories = Category::get();
+        $route = 'category';
+         return Datatables::of($categories)->addColumn('actions', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->rawColumns(['actions'])
+         ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *

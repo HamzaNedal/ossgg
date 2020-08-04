@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateSliderRequest;
 use App\Http\Requests\UpdateSliderRequest;
+use App\Services\ImageService;
+use Yajra\DataTables\Facades\DataTables;
+
 class SliderController extends Controller
 {
     /**
@@ -17,10 +20,18 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::get();
-        return view('backend.sliders.index',compact('sliders'));
+        return view('backend.sliders.index');
     }
-
+    protected function datatable(){
+        $sliders = Slider::get();
+        $route = 'slider';
+        return DataTables::of($sliders)->addColumn('action', function ($data) use($route) {
+            return view('backend.datatables.actions',compact('data','route'));
+        })->addColumn('image', function ($data) {
+           return view('backend.datatables.sliderImages',compact('data'));
+       })->rawColumns(['image','action'])
+        ->make(true);
+     }
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +94,7 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSliderRequest $request, $id,ImageService $imageService)
     {
         $id = (int) $id;
         $slider = Slider::findOrFail($id);
