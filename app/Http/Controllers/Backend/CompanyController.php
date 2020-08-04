@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Http\Requests\CreateCompanyRequest;
-use app\Http\Requests\UpdateCompanyRequest;
+use App\Http\Requests\CreateCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\ImageService;
 use Yajra\Datatables\Datatables;
 
@@ -46,8 +46,8 @@ class CompanyController extends Controller
     public function store(CreateCompanyRequest $request,ImageService $imageService)
     {
         $input = $request->all();
-        if (request()->hasfile('logo')) {
-            $input['logo'] = $imageService->upload($request->logo,'company');
+        if (request()->hasfile('image')) {
+            $input['image'] = $imageService->upload($request->image,'company');
         }
         Company::Create($input);
         return redirect()->rotue('admin.company.index')->with('success', 'The Company has been added successfully');
@@ -86,8 +86,8 @@ class CompanyController extends Controller
         $id = (int) $id;
         $company = Company::findOrFail($id);
         $input = $request->except(['_token','_method']);
-        if (request()->hasfile('logo')) {
-            $input['logo'] = $imageService->upload($request->logo,'company');
+        if (request()->hasfile('image')) {
+            $input['image'] = $imageService->upload($request->image,'company');
         }
         Company::where('id', $id)->update($input);
         return redirect()->rotue('admin.company.index')->with('success', 'The Company has been updated successfully');

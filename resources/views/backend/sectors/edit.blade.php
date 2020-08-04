@@ -12,7 +12,8 @@
                     @endforeach
                 </ul>
             </div>
-        @endif          <div class="box box-primary">
+        @endif         
+         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -36,5 +37,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

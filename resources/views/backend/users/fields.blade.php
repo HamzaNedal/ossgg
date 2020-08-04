@@ -44,7 +44,6 @@
       <div class="input-group">
         <div class="custom-file">
           <input type="file" class="" id="photoInput" name="image">
-          {{-- <label class="custom-file-label" for="logo">Add logo</label> --}}
           @isset($user)
           <img src="{{ asset('profile/'.$user->image) }}" alt="" style="width: 50px;" id="image"> 
           <img src="{{ asset('profile/'.$user->image) }}" class="d-none backImage" style="width: 50px;"> 

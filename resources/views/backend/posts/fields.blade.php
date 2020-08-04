@@ -2,7 +2,7 @@
 <div class="card-body">
   <div class="form-group">
     <label for="name">Title</label>
-    <input type="text" class="form-control" id="name"@isset($post)  value="{{ $post->title }}" @endisset  name="title" placeholder="enter title">
+    <input type="text" class="form-control" id="name"@isset($post)  value="{{ $post->title }}" @endisset value="{{ old('title') }}"  name="title" placeholder="enter title">
     </div>
     <div class="form-group">
       <label for="category_id">Cagertory</label>

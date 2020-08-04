@@ -177,7 +177,7 @@
                     <div class="item">
                         <div class="row justify-content-center align-items-center slide">
                             <div class="col-lg-4 col-md-4 col-sm-12  mb-5">
-                                <img src="{{ asset('company/'.$company->logo) }}" alt="" class="wow fadeInUpBig">
+                                <img src="{{ asset('company/'.$company->image) }}" alt="" class="wow fadeInUpBig">
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="title wow jackInTheBox">
@@ -431,7 +431,7 @@
                     @endforeach --}}
                         @foreach ($partnaers as $partnaer)
                         <div class="item">
-                            <a href="{{ $partnaer->link }}"><img src="{{ asset('partnaers/'.$partnaer->logo) }}" title="{{ $partnaer->title }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
+                            <a href="{{ $partnaer->link }}"><img src="{{ asset('partnaers/'.$partnaer->image) }}" title="{{ $partnaer->title }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
                         </div>
                         @endforeach
                   

@@ -52,8 +52,8 @@ class PartnaersControlle extends Controller
     public function store(CreatePartnaerRequest $request,ImageService $imageService)
     {
          $input = request()->except(['_token','_method']);
-        if (request()->hasfile('logo')) {
-            $input['logo'] = $imageService->upload($request->logo,'partnaers');
+        if (request()->hasfile('image')) {
+            $input['image'] = $imageService->upload($request->image,'partnaers');
         }
         Partnaers::Create($input);
         return redirect()->route('admin.partnaer.index')->with('success', 'The Partnaer has been added successfully');
@@ -95,8 +95,8 @@ class PartnaersControlle extends Controller
         $id = (int) $id;
         $input = $request->except(['_token','_method']);
         $partnaers = Partnaers::findOrFailOrFail($id);        
-        if (request()->hasfile('logo')) {
-            $input['logo'] = $imageService->upload($request->logo,'partnaers');
+        if (request()->hasfile('image')) {
+            $input['image'] = $imageService->upload($request->image,'partnaers');
         }
         Partnaers::where('id', $id)->update($input);
         return redirect()->route('admin.partnaer.index')->with('success', 'The Partnaer has been updated successfully');

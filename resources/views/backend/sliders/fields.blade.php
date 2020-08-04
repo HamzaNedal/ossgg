@@ -2,16 +2,16 @@
 <div class="card-body">
     <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title"@isset($slider)  value="{{ $slider->title }}" @endisset  name="title" placeholder="enter name">
+    <input type="text" class="form-control" id="title"@isset($slider)  value="{{ $slider->title }}" @endisset  value="{{ old('title') }}" name="title" placeholder="enter name">
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" name="description" id="description" cols="30" rows="10"  placeholder="enter description to slider">@isset($slider){{$slider->description}}@endisset</textarea>
+      <textarea class="form-control" name="description" id="description" cols="30" rows="10"  placeholder="enter description to slider">@isset($slider){{$slider->description}}@endisset  {{ old('description') }}</textarea>
       </div>
       <div class="form-group">
         <label for="link">Link</label>
-        <input type="text" class="form-control" id="link" @isset($slider)  value="{{ $slider->link }}" @endisset  name="link" placeholder="enter link">
+        <input type="text" class="form-control" id="link" @isset($slider)  value="{{ $slider->link }}" @endisset  value="{{ old('link') }}"  name="link" placeholder="enter link">
       </div>
     <div class="form-group">
       <label for="photo">Image(optional)</label>

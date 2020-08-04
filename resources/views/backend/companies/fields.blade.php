@@ -2,7 +2,7 @@
 <div class="card-body">
     <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" id="name"@isset($company)  value="{{ $company->name }}" @endisset  name="name" placeholder="enter name company">
+    <input type="text" class="form-control" id="name"@isset($company)  value="{{ $company->name }}" @endisset value="{{ old('name') }}" name="name" placeholder="enter name company">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
@@ -10,7 +10,7 @@
         </div>
     <div class="form-group">
         <label for="link">Link</label>
-        <input type="text" class="form-control" id="link" @isset($company) value="{{ $company->link }}" @endisset  name="link" placeholder="enter link company">
+        <input type="text" class="form-control" id="link" @isset($company) value="{{ $company->link }}" @endisset value="{{ old('name') }}" name="link" placeholder="enter link company">
       </div>
 
   
@@ -19,8 +19,7 @@
       <label for="photoInput">logo</label>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="" id="photoInput" name="logo">
-          {{-- <label class="custom-file-label" for="logo">Add logo</label> --}}
+          <input type="file" class="" id="photoInput" name="image">
           @isset($company)
           <img src="{{ asset('company/'.$company->image) }}" alt="" style="width: 50px;" id="image"> 
           <img src="{{ asset('company/'.$company->image) }}" class="d-none backImage" style="width: 50px;"> 
