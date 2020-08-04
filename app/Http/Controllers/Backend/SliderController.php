@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Requests\CreateSliderRequest;
+use App\Http\Requests\UpdateSliderRequest;
 class SliderController extends Controller
 {
     /**
@@ -36,32 +37,17 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateSliderRequest $request,ImageService $imageService)
     {
-       $input =  request()->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'image|nullable',
-            'background_image' => 'required|image',
-            'link'=>'nullable|url|max:255',
-        ]);
-
+       $input =  $request->all();
         if (request()->hasfile('background_image')) {
-            $name = request('background_image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('background_image')->move(public_path() . '/background_image/', $name);
-            $input['background_image'] = $name;
+            $input['background_image'] = $imageService->upload($request->background_image,'background_image');
         }
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/image/', $name);
-            $input['image'] = $name;
+            $input['image'] = $imageService->upload($request->image,'image');
         }
-        
         Slider::Create($input);
-        
-        return redirect('admin/sliders')->with('success','The Slider has been added successfully');
+        return redirect()->route('admin.slider.index')->with('success','The Slider has been added successfully');
 
     }
 
@@ -84,11 +70,8 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $slider = Slider::find($id);
-        if(!$slider){
-            return redirect()->back()->with('error','Slider not found');
-
-        }
+        $id =(int) $id;
+        $slider = Slider::findOrFail($id);
         return view('backend.sliders.edit',compact('slider'));
 
     }
@@ -103,37 +86,16 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $id = (int) $id;
-        $slider = Slider::find($id);
-    
-        if (!$slider) {
-            return redirect()->back()->with('error', 'Slider not found');
-        }
-        $input =  request()->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'background_image' => 'sometimes|image',
-            'image' => 'sometimes|image',
-            'link'=>'nullable|url|max:255',
-        ]);
-
-        array_filter($input);
-        
+        $slider = Slider::findOrFail($id);
+        $input =  $request->except(['_token','_method']);      
         if (request()->hasfile('background_image')) {
-            $name = request('background_image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('background_image')->move(public_path() . '/background_image/', $name);
-            $input['background_image'] = $name;
-        }
+            $input['background_image'] = $imageService->upload($request->background_image,'background_image');
+          }
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/image/', $name);
-            $input['image'] = $name;
+            $input['image'] = $imageService->upload($request->image,'image');
         }
-        
         Slider::where('id',$id)->update($input);
-        
-        return redirect('admin/sliders')->with('success','The Slider has been updated successfully');
+        return redirect()->route('admin.slider.index')->with('success','The Slider has been updated successfully');
 
     }
 
@@ -145,11 +107,7 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::find($id);
-        if(!$slider){
-            return redirect()->back()->with('error','Slider not found');
-        }
-
+        $slider = Slider::findOrFail($id);
         Slider::destroy($id);
         return redirect()->back()->with('success','The Slider has been deleted successfully');
     }

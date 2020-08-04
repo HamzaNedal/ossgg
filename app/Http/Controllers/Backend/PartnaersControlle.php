@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Partnaers;
 use Illuminate\Http\Request;
-
+use app\Http\Requests\CreatePartnaerRequest;
+use app\Http\Requests\UpdatePartnaerRequest;
+use App\Services\ImageService;
 class PartnaersControlle extends Controller
 {
     /**
@@ -36,21 +38,12 @@ class PartnaersControlle extends Controller
      */
     public function store(Request $request)
     {
-        //  $request->all();
-         $input =  request()->validate([
-            'title' => 'required|string',
-            'link' => 'required|url',
-            'logo' => 'required|image',
-        ]);
-
+         $input = request()->except(['_token','_method']);
         if (request()->hasfile('logo')) {
-            $name = request('logo')->getClientOriginalName();
-            $name = time() . uniqid() . '_' . $name;
-            request('logo')->move(public_path() . '/partnaers/', $name);
-            $input['logo'] = $name;
+            $input['logo'] = $imageService->upload($request->logo,'partnaers');
         }
         Partnaers::Create($input);
-        return redirect('admin/partnaers')->with('success', 'The Partnaer has been added successfully');
+        return redirect()->route('admin.partnaer.index')->with('success', 'The Partnaer has been added successfully');
     }
 
     /**
@@ -73,11 +66,7 @@ class PartnaersControlle extends Controller
     public function edit($id)
     {
         $id = (int) $id;
-        $partnaer = Partnaers::find($id);
-        if (!$partnaer) {
-            return redirect()->back()->with('error', 'Partnaer not found');
-        }
-
+        $partnaer = Partnaers::findOrFail($id);
         return view('backend.partnaers.edit', compact('partnaer'));
     }
 
@@ -88,33 +77,16 @@ class PartnaersControlle extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,ImageService $imageService)
     {
         $id = (int) $id;
-       $input = request()->validate([
-            'title' => 'required|string',
-            'link' => 'required|string',
-            'logo' => 'nullable',
-        ]);
-        $partnaers = Partnaers::find(request()->id);
-        if (!$partnaers) {
-            return redirect()->back()->with('error', 'Partnaer not found');
-        }
-
-       // $input = request()->all();
-       // unset($input['_token']);
-       // unset($input['_method']);
-        array_filter($input);
-        
+        $input = $request->except(['_token','_method']);
+        $partnaers = Partnaers::findOrFailOrFail($id);        
         if (request()->hasfile('logo')) {
-            $name = request('logo')->getClientOriginalName();
-            $name = time() . uniqid() . '_' . $name;
-            request('logo')->move(public_path() . '/partnaers/', $name);
-            $input['logo'] = $name;
+            $input['logo'] = $imageService->upload($request->logo,'partnaers');
         }
         Partnaers::where('id', $id)->update($input);
-
-        return redirect('admin/partnaers')->with('success', 'The Partnaer has been updated successfully');
+        return redirect()->route('admin.partnaer.index')->with('success', 'The Partnaer has been updated successfully');
     }
 
     /**
@@ -127,11 +99,7 @@ class PartnaersControlle extends Controller
     {
         
         $id = (int) $id;
-        $partnaers = Partnaers::find($id);
-        if (!$partnaers) {
-            return redirect()->back()->with('error', 'Partnaer not found');
-        }
-
+        $partnaers = Partnaers::findOrFail($id);
         Partnaers::destroy($id);
         return redirect()->back()->with('success', 'The Partnaer has been deleted successfully');
     }

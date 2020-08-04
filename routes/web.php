@@ -13,120 +13,116 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('frontend.home');
-Route::post('/', 'HomeController@storeServiceResquests')->name('storeServiceResquests');
-Route::post('/contact-us', 'HomeController@storeContactUs')->name('storeContactUs');
-Route::get('/all-news', 'HomeController@getNews')->name('news');
-Route::get('/details/news/{id}', 'HomeController@ditailsNews')->name('details.news');
+Route::get('/', [HomeController::class,'index'])->name('frontend.home');
+Route::post('/', [HomeController::class,'storeServiceResquests'])->name('storeServiceResquests');
+Route::post('/contact-us', [HomeController::class,'storeContactUs'])->name('storeContactUs');
+Route::get('/news', [HomeController::class,'getNews'])->name('news');
+Route::get('/details/news/{id}', [HomeController::class,'ditailsNews'])->name('details.news');
 
 
 
 Auth::routes(['register' => false]);
 
-// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', [HomeController::class,]'index')->name('home');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index')->name('admin.home');
+    Route::get('/home', [HomeController::class,'index'])->name('admin.home');
     //User
-    Route::get('/users', 'UserController@index')->name('admin.users.index');
-    Route::get('/users/create', 'UserController@create')->name('admin.users.create');
-    Route::post('/users/store', 'UserController@store')->name('admin.users.store');
-    Route::get('/users/edit/{id}', 'UserController@edit')->name('admin.users.edit');
-    Route::put('/users/update/{id}', 'UserController@update')->name('admin.users.update');
-    Route::delete('/users/delete/{id}', 'UserController@destroy')->name('admin.users.destroy');
+    Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
+    Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
+    Route::post('/users', [UserController::class,'store'])->name('admin.users.store');
+    Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [UserController::class,'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [UserController::class,'destroy'])->name('admin.users.destroy');
     //end User
 
     //members
-    Route::get('/members', 'MembersContrllers@index')->name('admin.member.index');
-    Route::get('/member/create', 'MembersContrllers@create')->name('admin.member.create');
-    Route::post('/member/store', 'MembersContrllers@store')->name('admin.member.store');
-    Route::put('/member/update/{id}', 'MembersContrllers@update')->name('admin.member.update');
-    Route::get('/member/edit/{id}', 'MembersContrllers@edit')->name('admin.member.edit');
-    Route::delete('/member/delete/{id}', 'MembersContrllers@destroy')->name('admin.member.destroy');
+    Route::get('/members', [MembersContrllers::class,'index'])->name('admin.member.index');
+    Route::get('/member/create', [MembersContrllers::class,'create'])->name('admin.member.create');
+    Route::post('/members', [MembersContrllers::class,'store'])->name('admin.member.store');
+    Route::put('/member/{id}', [MembersContrllers::class,'update'])->name('admin.member.update');
+    Route::get('/member/{id}/edit', [MembersContrllers::class,'edit'])->name('admin.member.edit');
+    Route::delete('/member/{id}', [MembersContrllers::class,'destroy'])->name('admin.member.destroy');
     //end members
 
     //Category
-    Route::get('/category', 'CategoryController@index')->name('admin.category.index');
-    Route::get('/category/create', 'CategoryController@create')->name('admin.category.create');
-    Route::post('/category/store', 'CategoryController@store')->name('admin.category.store');
-    Route::put('/category/update/{id}', 'CategoryController@update')->name('admin.category.update');
-    Route::get('/category/edit/{id}', 'CategoryController@edit')->name('admin.category.edit');
-    Route::delete('/category/delete/{id}', 'CategoryController@destroy')->name('admin.category.destroy');
+    Route::get('/categories', [CategoryController::class,'index'])->name('admin.category.index');
+    Route::get('/category/create', [CategoryController::class,'create'])->name('admin.category.create');
+    Route::post('/category', [CategoryController::class,'store'])->name('admin.category.store');
+    Route::put('/category/{id}', [CategoryController::class,'update'])->name('admin.category.update');
+    Route::get('/category/{id}/edit', [CategoryController::class,'edit'])->name('admin.category.edit');
+    Route::delete('/category/{id}', [CategoryController::class,'destroy'])->name('admin.category.destroy');
     //end category
 
     //posts
-    Route::get('/posts', 'PostController@index')->name('admin.post.index');
-    Route::get('/post/create', 'PostController@create')->name('admin.post.create');
-    Route::post('/post/store', 'PostController@store')->name('admin.post.store');
-    Route::get('/post/edit/{id}', 'PostController@edit')->name('admin.post.edit');
-    Route::put('/post/update/{id}', 'PostController@update')->name('admin.post.update');
-    Route::delete('/post/delete/{id}', 'PostController@destroy')->name('admin.post.destroy');
+    Route::get('/posts', [PostController::class,'index'])->name('admin.post.index');
+    Route::get('/post/create', [PostController::class,'create'])->name('admin.post.create');
+    Route::post('/posts', [PostController::class,'store'])->name('admin.post.store');
+    Route::get('/post/{id}/edit', [PostController::class,'edit'])->name('admin.post.edit');
+    Route::put('/post/{id}', [PostController::class,'update'])->name('admin.post.update');
+    Route::delete('/post/{id}', [PostController::class,'destroy'])->name('admin.post.destroy');
     //end posts
 
     //companies
-    Route::get('/companies', 'CompanyController@index')->name('admin.company.index');
-    Route::get('/company/create', 'CompanyController@create')->name('admin.company.create');
-    Route::post('/company/store', 'CompanyController@store')->name('admin.company.store');
-    Route::get('/company/edit/{id}', 'CompanyController@edit')->name('admin.company.edit');
-    Route::put('/company/update/{id}', 'CompanyController@update')->name('admin.company.update');
-    Route::delete('/company/delete/{id}', 'CompanyController@destroy')->name('admin.company.destroy');
+    Route::get('/companies', [CompanyController::class,'index'])->name('admin.company.index');
+    Route::get('/company/create', [CompanyController::class,'create'])->name('admin.company.create');
+    Route::post('/companies', [CompanyController::class,'store'])->name('admin.company.store');
+    Route::get('/company/{id}/edit', [CompanyController::class,'edit'])->name('admin.company.edit');
+    Route::put('/company/{id}', [CompanyController::class,'update'])->name('admin.company.update');
+    Route::delete('/company/{id}', [CompanyController::class,'destroy'])->name('admin.company.destroy');
     //end companies
 
     //partnaers
-    Route::get('/partnaers', 'PartnaersControlle@index')->name('admin.partnaer.index');
-    Route::get('/partnaer/create', 'PartnaersControlle@create')->name('admin.partnaer.create');
-    Route::post('/partnaer/store', 'PartnaersControlle@store')->name('admin.partnaer.store');
-    Route::get('/partnaer/edit/{id}', 'PartnaersControlle@edit')->name('admin.partnaer.edit');
-    Route::put('/partnaer/update/{id}', 'PartnaersControlle@update')->name('admin.partnaer.update');
-    Route::delete('/partnaer/delete/{id}', 'PartnaersControlle@destroy')->name('admin.partnaer.destroy');
+    Route::get('/partnaers', [PartnaersControlle::class,'index'])->name('admin.partnaer.index');
+    Route::get('/partnaer/create', [PartnaersControlle::class,'create'])->name('admin.partnaer.create');
+    Route::post('/partnaers', [PartnaersControlle::class,'store'])->name('admin.partnaer.store');
+    Route::get('/partnaer/{id}/edit', [PartnaersControlle::class,'edit'])->name('admin.partnaer.edit');
+    Route::put('/partnaer/{id}', [PartnaersControlle::class,'update'])->name('admin.partnaer.update');
+    Route::delete('/partnaer/{id}', [PartnaersControlle::class,'destroy'])->name('admin.partnaer.destroy');
     //end partnaers
 
     //sectors
-    Route::get('/sectors', 'SectorController@index')->name('admin.sector.index');
-    Route::get('/sector/create', 'SectorController@create')->name('admin.sector.create');
-    Route::post('/sector/store', 'SectorController@store')->name('admin.sector.store');
-    Route::get('/sector/edit/{id}', 'SectorController@edit')->name('admin.sector.edit');
-    Route::put('/sector/update/{id}', 'SectorController@update')->name('admin.sector.update');
-    Route::delete('/sector/delete/{id}', 'SectorController@destroy')->name('admin.sector.destroy');
+    Route::get('/sectors', [SectorController::class,'index'])->name('admin.sector.index');
+    Route::get('/sector/create', [SectorController::class,'create'])->name('admin.sector.create');
+    Route::post('/sector', [SectorController::class,'store'])->name('admin.sector.store');
+    Route::get('/sector/{id}/edit', [SectorController::class,'edit'])->name('admin.sector.edit');
+    Route::put('/sector/{id}', [SectorController::class,'update'])->name('admin.sector.update');
+    Route::delete('/sector/{id}', [SectorController::class,'destroy'])->name('admin.sector.destroy');
     //end sectors
 
     //sliders
-    Route::get('/sliders', 'SliderController@index')->name('admin.slider.index');
-    Route::get('/slider/create', 'SliderController@create')->name('admin.slider.create');
-    Route::post('/slider/store', 'SliderController@store')->name('admin.slider.store');
-    Route::get('/slider/edit/{id}', 'SliderController@edit')->name('admin.slider.edit');
-    Route::put('/slider/update/{id}', 'SliderController@update')->name('admin.slider.update');
-    Route::delete('/slider/delete/{id}', 'SliderController@destroy')->name('admin.slider.destroy');
+    Route::get('/sliders', [SliderController::class,'index'])->name('admin.slider.index');
+    Route::get('/slider/create', [SliderController::class,'create'])->name('admin.slider.create');
+    Route::post('/sliders', [SliderController::class,'store'])->name('admin.slider.store');
+    Route::get('/slider/{id}/edit', [SliderController::class,'edit'])->name('admin.slider.edit');
+    Route::put('/slider/{id}', [SliderController::class,'update'])->name('admin.slider.update');
+    Route::delete('/slider/{id}', [SliderController::class,'destroy'])->name('admin.slider.destroy');
     //end sliders
 
     //services
-    Route::get('/services', 'ServiceController@index')->name('admin.service.index');
-    Route::get('/service_requests', 'ServiceController@serviceResquests')->name('admin.service_requests.index');
-    Route::get('/service_requests/delete/{id}', 'ServiceController@destroyserviceResquests')->name('admin.service_requests.destroy');
-    Route::get('/service/create', 'ServiceController@create')->name('admin.service.create');
-    Route::post('/service/store', 'ServiceController@store')->name('admin.service.store');
-    Route::get('/service/edit/{id}', 'ServiceController@edit')->name('admin.service.edit');
-    Route::put('/service/update/{id}', 'ServiceController@update')->name('admin.service.update');
-    Route::delete('/service/delete/{id}', 'ServiceController@destroy')->name('admin.service.destroy');
+    Route::get('/services', [ServiceController::class,'index'])->name('admin.service.index');
+    Route::get('/service/create', [ServiceController::class,'create'])->name('admin.service.create');
+    Route::post('/services', [ServiceController::class,'store'])->name('admin.service.store');
+    Route::get('/service/{id}/edit', [ServiceController::class,'edit'])->name('admin.service.edit');
+    Route::put('/service/{id}', [ServiceController::class,'update'])->name('admin.service.update');
+    Route::delete('/service/delete/{id}', [ServiceController::class,'destroy'])->name('admin.service.destroy');
+    Route::get('/service_requests', [ServiceController::class,'serviceResquests'])->name('admin.service_requests.index');
+    Route::get('/service_requests/delete/{id}', [ServiceController::class,'destroyserviceResquests'])->name('admin.service_requests.destroy');
     //end services
 
     //contactUs
-    Route::get('/contact-us', 'ContactUsController@index')->name('admin.contactUs.index');
-    Route::delete('/contact-us/delete/{id}', 'ContactUsController@destroy')->name('admin.contactUs.destroy');
+    Route::get('/contact-us', [ContactUsController::class,'index'])->name('admin.contactUs.index');
+    Route::delete('/contact-us/{id}', [ContactUsController::class,'destroy'])->name('admin.contactUs.destroy');
     //end contactUs
 
     //static_page
-    Route::get('/static_page', 'StaticPageController@index')->name('admin.static_page.index');
-    Route::get('/static_page/create', 'StaticPageController@create')->name('admin.static_page.create');
-    Route::post('/static_page/store', 'StaticPageController@store')->name('admin.static_page.store');
-    // Route::get('/static_page/edit/{id}', 'StaticPageController@edit')->name('admin.static_page.edit');
-    // Route::put('/static_page/update/{id}', 'StaticPageController@update')->name('admin.static_page.update');
-    // Route::delete('/static_page/delete/{id}', 'StaticPageController@destroy')->name('admin.static_page.destroy');
+    Route::get('/static_page', [StaticPageController::class,'index'])->name('admin.static_page.index');
+    Route::get('/static_page/create', [StaticPageController::class,'create'])->name('admin.static_page.create');
+    Route::post('/static_page', [StaticPageController::class,'store'])->name('admin.static_page.store');
     //end static_page
 
     //about us
-    //  Route::get('/about-us', 'StaticPageController@index')->name('admin.about_us.index');
-    Route::get('/about-us', 'StaticPageController@showAboutUs')->name('admin.about_us.show');
-    Route::post('/about-us/update-about_us', 'StaticPageController@updateAboutUs')->name('admin.about_us.store');
+    Route::get('/about-us', [StaticPageController::class,'showAboutUs'])->name('admin.about_us.show');
+    Route::post('/about-us', [StaticPageController::class,'updateAboutUs'])->name('admin.about_us.store');
     //end about us
 });

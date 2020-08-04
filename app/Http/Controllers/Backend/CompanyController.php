@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use app\Http\Requests\CreateCompanyRequest;
+use app\Http\Requests\UpdateCompanyRequest;
+use App\Services\ImageService;
 
 class CompanyController extends Controller
 {
@@ -21,8 +24,6 @@ class CompanyController extends Controller
      */
     public function create()
     {
-
-        // $companies = Company::get();
         return view('backend.companies.create');
     }
 
@@ -32,24 +33,14 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCompanyRequest $request,ImageService $imageService)
     {
         $input = $request->all();
-        request()->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'link' => 'required|url',
-            'logo' => 'required|image',
-        ]);
-
         if (request()->hasfile('logo')) {
-            $name = request('logo')->getClientOriginalName();
-            $name = time() . uniqid() . '_' . $name;
-            request('logo')->move(public_path() . '/company/', $name);
-            $input['logo'] = $name;
+            $input['logo'] = $imageService->upload($request->logo,'company');
         }
         Company::Create($input);
-        return redirect('admin/companies')->with('success', 'The Company has been added successfully');
+        return redirect()->rotue('admin.company.index')->with('success', 'The Company has been added successfully');
     }
 
     /**
@@ -70,11 +61,7 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $id = (int) $id;
-        $company = Company::find($id);
-        if (!$company) {
-            return redirect()->back()->with('error', 'Company not found');
-        }
-
+        $company = Company::findOrFail($id);
         return view('backend.companies.edit', compact('company'));
     }
 
@@ -84,35 +71,16 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(UpdateCompanyRequest $request,  $id,ImageService $imageService)
     {
         $id = (int) $id;
-        request()->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'link' => 'required|string',
-            'logo' => 'nullable',
-        ]);
-        $company = Company::find($id);
-        if (!$company) {
-            return redirect()->back()->with('error', 'Company not found');
-        }
-
-        $input = request()->all();
-        unset($input['_token']);
-        unset($input['_method']);
-        array_filter($input);
-        
+        $company = Company::findOrFail($id);
+        $input = $request->except(['_token','_method']);
         if (request()->hasfile('logo')) {
-            $name = request('logo')->getClientOriginalName();
-            $name = time() . uniqid() . '_' . $name;
-            request('logo')->move(public_path() . '/company/', $name);
-            $input['logo'] = $name;
+            $input['logo'] = $imageService->upload($request->logo,'company');
         }
-        // array_filter($request->all());
         Company::where('id', $id)->update($input);
-
-        return redirect('admin/companies')->with('success', 'The Company has been updated successfully');
+        return redirect()->rotue('admin.company.index')->with('success', 'The Company has been updated successfully');
     }
 
     /**
@@ -123,11 +91,7 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $id = (int) $id;
-        $company = Company::find($id);
-        if (!$company) {
-            return redirect()->back()->with('error', 'Company not found');
-        }
-
+        $company = Company::findOrFail($id);
         Company::destroy($id);
         return redirect()->back()->with('success', 'The Company has been deleted successfully');
     }

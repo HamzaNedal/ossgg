@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Sector;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\CreateSectorRequest;
+use App\Http\Requests\UpdateSectorRequest;
 class SectorController extends Controller
 {
     /**
@@ -35,16 +36,11 @@ class SectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateSectorRequest $request)
     {
-        $input = $request->all();
-        request()->validate([
-            'name' => 'required|string',
-        ]);
-        
+        $input = $request->all();        
         Sector::Create($input);
-
-        return redirect('admin/sectors')->with('success', 'The Sector has been added successfully');
+        return redirect()->route('admin.sector.index')->with('success', 'The Sector has been added successfully');
     }
 
     /**
@@ -64,10 +60,7 @@ class SectorController extends Controller
      */
     public function edit($id)
     {
-        $sector = Sector::find($id);
-        if (!$sector) {
-            return redirect()->back()->with('error', 'Sector not found');
-        }
+        $sector = Sector::findOrFail($id);
         return view('backend.sectors.edit', compact('sector'));
     }
 
@@ -77,20 +70,12 @@ class SectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(UpdateSectorRequest $request,  $id)
     {
         $id = (int) $id;
-        request()->validate([
-            'name' => 'required|string',
-        ]);
-
-        $sector = Sector::find(request()->id);
-        if (!$sector) {
-            return redirect()->back()->with('error', 'Sector not found');
-        }
-        Sector::where('id',request()->id)->update(['name'=>request()->name]);
-
-        return redirect('admin/sectors')->with('success', 'The Sector has been updated successfully');
+        $sector = Sector::findOrFail($id);
+        Sector::where('id',$id)->update(['name'=>$request->name]);
+        return redirect()->route('admin.sector.index')->with('success', 'The Sector has been updated successfully');
     }
 
     /**
@@ -100,11 +85,7 @@ class SectorController extends Controller
      */
     public function destroy($id)
     {
-        $sector = Sector::find($id);
-        if (!$sector) {
-            return redirect()->back()->with('error', 'Sector not found');
-        }
-
+        $sector = Sector::findOrFail($id);
         Sector::destroy($id);
         return redirect()->back()->with('success', 'The Sector has been deleted successfully');
     }

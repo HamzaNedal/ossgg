@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\ServiceRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\CreateServiceRequest;
+use App\Http\Requests\UpdateServiceRequest;
 class ServiceController extends Controller
 {
     /**
@@ -37,17 +38,11 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateServiceRequest $request)
     {
-        $input = $request->all();
-        request()->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-        ]);
-        
+        $input = $request->all();        
         Service::Create($input);
-
-        return redirect('admin/services')->with('success', 'The Service has been added successfully');
+        return redirect()->route('admin.service.index')->with('success', 'The Service has been added successfully');
     }
 
     /**
@@ -69,10 +64,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $service = Service::find($id);
-        if (!$service) {
-            return redirect()->back()->with('error', 'Service not found');
-        }
+        $service = Service::findOrFail($id);
         return view('backend.services.edit', compact('service'));
     }
 
@@ -87,20 +79,9 @@ class ServiceController extends Controller
     {
         $id = (int) $id;
         $input =$request->all();
-        request()->validate([
-            'title' => 'string',
-            'description' => 'string',
-        ]);
-        unset($input['_token']);
-        unset($input['_method']);
-        array_filter($input);
-        $service = Service::find(request()->id);
-        if (!$service) {
-            return redirect()->back()->with('error', 'Service not found');
-        }
+        $service = Service::findOrFail($id);
         Service::where('id',$id)->update($input);
-
-        return redirect('admin/services')->with('success', 'The Service has been updated successfully');
+        return redirect()->route('admin.service.index')->with('success', 'The Service has been updated successfully');
     }
 
     /**
@@ -111,11 +92,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $service = Service::find($id);
-        if (!$service) {
-            return redirect()->back()->with('error', 'Service not found');
-        }
-
+        $id = (int) $id;
+        $service = Service::findOrFail($id);
         Service::destroy($id);
         return redirect()->back()->with('success', 'The Service has been deleted successfully');
     }
@@ -124,17 +102,13 @@ class ServiceController extends Controller
     public function serviceResquests()
     {
        $serviceResquests =  ServiceRequests::get();
-
        return view('backend.services.service_requests.index', compact('serviceResquests'));
     }
 
     public function destroyserviceResquests($id)
     {
-        $serviceRequests = ServiceRequests::find($id);
-        if (!$serviceRequests) {
-            return redirect()->back()->with('error', 'Service not found');
-        }
-
+        $id = (int) $id;
+        $serviceRequests = ServiceRequests::findOrFail($id);
         ServiceRequests::destroy($id);
         return redirect()->back()->with('success', 'The Service Resquest has been deleted successfully');
 

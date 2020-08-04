@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 class CategoryController extends Controller
 {
     /**
@@ -35,16 +36,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
-        $input = $request->all();
-        request()->validate([
-            'name' => 'required|string',
-        ]);
-        
-        Category::Create($input);
-
-        return redirect('admin/category')->with('success', 'The category has been added successfully');
+        Category::Create($request->all());
+        return redirect()->route('admin.category.index')->with('success', 'The category has been added successfully');
     }
 
     /**
@@ -66,10 +61,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        if (!$category) {
-            return redirect()->back()->with('error', 'Category not found');
-        }
+        $category = Category::findOrFail($id);
         return view('backend.categories.edit', compact('category'));
     }
 
@@ -80,20 +72,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $Category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(UpdateCategoryRequest $request,  $id)
     {
         $id = (int) $id;
-        request()->validate([
-            'name' => 'required|string',
-        ]);
-
-        $category = Category::find(request()->id);
-        if (!$category) {
-            return redirect()->back()->with('error', 'Category not found');
-        }
-        Category::where('id',$id)->update(['name'=>request()->name]);
-
-        return redirect('admin/category')->with('success', 'The Category has been updated successfully');
+        $category = Category::findOrFail($request->id);
+        Category::where('id',$id)->update(['name'=>$request->name]);
+        return redirect()->route('admin.category.index')->with('success', 'The Category has been updated successfully');
     }
 
     /**
@@ -104,11 +88,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        if (!$category) {
-            return redirect()->back()->with('error', 'Category not found');
-        }
-
+        $id =(int) $id;
+        $category = Category::findOrFail($id);
         Category::destroy($id);
         return redirect()->back()->with('success', 'The Category has been deleted successfully');
     }

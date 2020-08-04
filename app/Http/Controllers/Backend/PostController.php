@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use App\Services\ImageService;
 
 class PostController extends Controller
 {
@@ -40,50 +43,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request,ImageService $imageService)
     {
-        request()->validate([
-            'title'=>'required|string',
-            'category_id'=>'required|integer',
-            'image'=>'required|image',
-            'description'=>'required|string',
-        ]);
-        $input = request()->all();
-        $detail = $request->description;
-        libxml_use_internal_errors(true);
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $dom->loadHtml( mb_convert_encoding($input['description'], 'HTML-ENTITIES', 'UTF-8'));
-        $images = $dom->getElementsByTagName('img');
-        
-        foreach ($images as $count => $image) {
-            $src = $image->getAttribute('src');
-            
-            if (preg_match('/data:image/', $src)) {
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimeType = $groups['mime'];
-                $path = 'images/' . uniqid('', true) . '.' . $mimeType;
-                Storage::disk('public')->put($path, file_get_contents($src));
-                $image->removeAttribute('src');
-                $image->setAttribute('src', asset('storage/'.$path));
-            }
-        }
 
+        $detail= $imageService->convertBaseImageTOUrl($request->description,'images');
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/posts/', $name);
-            $input['image'] = $name;
+            $input['image'] =  $imageService->upload($request->image,'posts');
         }
-        // $detail = $dom->savehtml();
-        $detail= $dom->savehtml($dom->documentElement).PHP_EOL . PHP_EOL;
-
         Post::create([
-            'title' => $input['title'],
+            'title' => $request->title,
             'description'=>$detail,
-            'category_id'=>$input['category_id'],
-            'image'=>$input['image'],
+            'category_id'=>$request->category_id,
+            'image'=>$request->image,
         ]);
-        return redirect('admin/posts')->with('success', 'The Post has been added successfully');
+        return redirect()->route('admin.post.index')->with('success', 'The Post has been added successfully');
 
     }
 
@@ -106,12 +79,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $id = (int) $id;
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $categories = Category::get();
-        if (!$post) {
-            return redirect()->back()->with('error', 'Post not found');
-        }
-
         return view('backend.posts.edit', compact('post','categories'));
 
     }
@@ -123,45 +92,16 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(UpdatePostRequest $request,  $id,ImageService $imageService)
     {
-        $input = $request->all();
         $id = (int) $id;
-        $request = request();
-
-        libxml_use_internal_errors(true);
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $dom->loadHtml( mb_convert_encoding($input['description'], 'HTML-ENTITIES', 'UTF-8'));
-
-        $images = $dom->getElementsByTagName('img');
+        $input = $request->except(['_token','_method']);
+        $input['description'] = $imageService->convertBaseImageTOUrl($request->description,'images');
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/posts/', $name);
-            $input['image'] = $name;
+            $input['image'] =   $imageService->upload($request->image,'posts');
         }
-
-        foreach ($images as $count => $image) {
-            $src = $image->getAttribute('src');
-            
-            if (preg_match('/data:image/', $src)) {
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimeType = $groups['mime'];
-                $path = 'images/' . uniqid('', true) . '.' . $mimeType;
-                Storage::disk('public')->put($path, file_get_contents($src));
-                $image->removeAttribute('src');
-                $image->setAttribute('src', asset('storage/'.$path));
-            }
-        }
-        
-        $input['description'] = $dom->savehtml($dom->documentElement).PHP_EOL . PHP_EOL;
-
-        unset($input['_token']);
-        unset($input['_method']);
-        array_filter($input);
         Post::where('id',$id)->update($input);
-
-        return redirect('admin/posts')->with('success', 'The Post has been updated successfully');
+        return redirect()->route('admin.post.index')->with('success', 'The Post has been updated successfully');
 
     }
 
@@ -173,11 +113,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $id = (int) $id;
-        $post = Post::find($id);
-        if (!$post) {
-            return redirect()->back()->with('error', 'Post not found');
-        }
-
+        $post = Post::findOrFail($id);
         Post::destroy($id);
         return redirect()->back()->with('success', 'The Post has been deleted successfully');
     }

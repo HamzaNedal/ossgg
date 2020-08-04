@@ -91,7 +91,7 @@ input.remove
                           <form action="{{ route('admin.about_us.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             
-                                @include('backend.About_us.fields')
+                                @include('backend.about_us.fields')
                                 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Save</button>

@@ -16,7 +16,9 @@ use App\Models\StaticPage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
-
+use app\Http\Requests\CreateServiceDataRequest;
+use app\Http\Requests\CreateContactUsRequest;
+use App\Services\ImageService;
 class HomeController extends Controller
 {
     /**
@@ -50,45 +52,18 @@ class HomeController extends Controller
         return view('frontend.welcome',compact('sliders','about_us','partnaers','companies','service','sectors','posts','users','static_page'));
     }
 
-    public function storeServiceResquests(Request $request)
+    public function storeServiceResquests(CreateServiceDataRequest $request,ImageService $imageService)
     {
         $input = $request->all();
-        unset($input['_token']);
-        request()->validate([
-            'name' => 'required|string',
-            'country' => 'required|string',
-            'phone_country_code' => 'required|integer',
-            'phone_no' => 'required|integer',
-            'email' => 'required|email',
-            'name_of_project' => 'required|string',
-            'sector_of_project_id' => 'required|integer',
-            'service_id' => 'required|integer',
-            'short_description' => 'required|string|max:255',
-            'file' => 'required|file|max:255',
-        ]);
         if (request()->hasfile('file')) {
-            $name = request('file')->getClientOriginalName();
-            $name = time() .'_'.uniqid(). '_' . $name;
-            request('file')->move(public_path() . '/files/', $name);
-            $input['file'] = $name;
+            $input['file'] = $imageService->upload($request->file,'files');
         }
         ServiceRequests::Create($input);
-
         return back();
     }
-    public function storeContactUs(Request $request)
+    public function storeContactUs(CreateContactUsRequest $request)
     {
-        $input = $request->all();
-        // unset($input['_token']);
-       $input =  request()->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:255',
-        ]);
-
-        ContactUs::Create($input);
-
+        ContactUs::Create($request->all());
         return back();
     }
 
@@ -106,10 +81,7 @@ class HomeController extends Controller
     public function ditailsNews($id)
     {
         $id = (int) $id;
-        $post = Post::find($id);
-        if (!$post) {
-            return redirect()->back();
-        }
+        $post = Post::findOrFail($id);
         $static_page = StaticPage::get();
         $static_page = array_column($static_page->toArray(),'value','name');
         $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');

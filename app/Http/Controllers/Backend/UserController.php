@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\ImageService;
 class UserController extends Controller
 {
     /**
@@ -33,31 +35,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Requests\CreateUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request,ImageService $imageService)
     {
-       $input = $request->all();
-        request()->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'image' => 'image|nullable',
-            'gender' => 'required|integer',
-            'password' => 'required|string',
-        ]);
-
+        $input = $request->all();
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/profile/', $name);
-            $input['image'] = $name;
+            $input['image'] = $imageService->upload($input['image'],'profile');
         }
-        $input['password'] =  Hash::make($request->password);
-        // dd($input);
-        User::Create($input);
-        
-        return redirect('admin/users')->with('success','The user has been added successfully');
+        User::create($input);
+        return redirect()->route('admin.users.index')->with('success','The user has been added successfully');
 
     }
 
@@ -80,11 +68,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        if(!$user){
-            return redirect()->back()->with('error','User not found');
-
-        }
+        $id = (int) $id;
+        $user = User::findOrFail($id);
         return view('backend.users.edit',compact('user'));
 
     }
@@ -92,35 +77,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  app\Http\rRequests\UpdateUserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $input = $request->all();
-        $user = User::find($id);
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not found');
-        }
-      $input =  request()->validate([
-            'name' => 'string',
-            'email' => 'email|unique:users,email,'.$id,
-            'image' => 'image|nullable',
-            'gender' => 'integer',
-        ]);
-
-    
+        $input = $request->except(['_token','_method']);
+        $user = User::findOrFail($id);
         if (request()->hasfile('image')) {
-            $name = request('image')->getClientOriginalName();
-            $name = time() .uniqid(). '_' . $name;
-            request('image')->move(public_path() . '/profile/', $name);
-            $input['image'] = $name;
+            $input['image'] = $imageService->upload($input['image'],'profile');
         }
-        
         User::where('id',$id)->update($input);
-        
-        return redirect('admin/users')->with('success','The user has been updated successfully');
+        return redirect()->route('admin.users.index')->with('success','The user has been updated successfully');
     }
 
     /**
@@ -131,12 +100,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        // dd($user);
-        if(!$user){
-            return redirect()->back()->with('error','User not found');
-        }
-
+        $user = User::findOrFail($id);
         User::destroy($id);
         return redirect()->back()->with('success','The user has been deleted successfully');
     }

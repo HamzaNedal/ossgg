@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\StaticPage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\ImageService;
 
 class StaticPageController extends Controller
 {
@@ -45,7 +46,6 @@ class StaticPageController extends Controller
     {
         $keys = $this->keys;
         $page_static = StaticPage::get();
-
         return view('backend.static_page.create', compact('keys', 'page_static'));
     }
 
@@ -57,34 +57,18 @@ class StaticPageController extends Controller
      */
     public function store(Request $request)
     {
-
         $input = $request->all();
-        unset($input['_token']);
         foreach ($input as $key => $value) {
-            // if(!array_key_exists($key,$this->keys)){
-            //     return redirect('admin/static_page')->with('error', "$this->keys is required");
-            // }
             $keyExist =  StaticPage::where(['key' => $key])->first();
             if ($keyExist) {
                 StaticPage::where(['key' => $key])->update(['key' => $key, 'name' => $key, 'value' => $value]);
             } else {
-                StaticPage::Create(['key' => $key, 'name' => $key, 'value' => $value]);
+                StaticPage::create(['key' => $key, 'name' => $key, 'value' => $value]);
             }
         }
-
-        return redirect('admin/static_page')->with('success', 'updated successfully');
+        return redirect()->route('admin.static_page.index')->with('success', 'updated successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StaticPage  $staticPage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StaticPage $staticPage)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -94,76 +78,39 @@ class StaticPageController extends Controller
     public function edit($id)
     {
         $id = (int) $id;
-        $static = StaticPage::find($id);
-        if (!$static) {
-            return redirect()->back()->with('error', 'Data not found');
-        }
-
+        $static = StaticPage::findOrFail($id);
         return view('backend.static_page.edit', compact('keys'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StaticPage  $staticPage
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, StaticPage $staticPage)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\StaticPage  $staticPage
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(StaticPage $staticPage)
-    {
-        //
     }
 
 
     public function showAboutUs()
     {
         $about_us = StaticPage::where('key', 'about_us')->get();
-        // if (!$about_us->toArray()) {
-        //     $about_us = $this->keys['about_us'];
-        //     return view('backend.About_us.create', compact('about_us'));
-        // }
-        // $about_us_keys = $this->keys['about_us'];
-        return view('backend.About_us.create', compact('about_us'));
+        return view('backend.about_us.create', compact('about_us'));
     }
 
-    public function updateAboutUs(Request $request)
+    public function updateAboutUs(Request $request,ImageService $imageService)
     {
         $input = $request->all();
         unset($input['_token']);
+
         if(isset($input['newInfo'])){
             $newData = $input['newInfo'];
-            unset($input['newInfo']);
             foreach ($newData as $key => $data) {
                 if (isset($data['file'])) {
-                    $iconName =$data['file']->getClientOriginalName();
-                    $iconName = time() .uniqid(). '_' . $iconName;
-                    $data['file']->move(public_path() . '/iconsAboutUs/', $iconName);
-                    $data['file'] = $iconName;
+                    $data['file'] = $imageService->upload($data['file'],'iconsAboutUs');
                 }
                 StaticPage::Create(['key' => 'about_us', 'name' => $data['name'],'value' => $data['value'],'status'=> $data['status']??0,'icon'=>$data['file']??'']);
             }
+            unset($input['newInfo']);
         }
+
         foreach ($input as $name => $value) {
             if (isset($value['file'])) {
-                $iconName =$value['file']->getClientOriginalName();
-                $iconName = time() .uniqid(). '_' . $iconName;
-                $value['file']->move(public_path() . '/iconsAboutUs/', $iconName);
-                $value['file'] = $iconName;
+                $data['file'] = $imageService->upload($value['file'],'iconsAboutUs');
             }
            $name = str_replace('_',' ',$name);
             $keyExist =  StaticPage::where(['key' => 'about_us','name'=>$name])->first();
-            // dd($name == );
             if($name == 'Who are OSSGG?'){
                 $value['status'] = 1;
             }
@@ -173,14 +120,13 @@ class StaticPageController extends Controller
                 StaticPage::where(['key' => 'about_us','name' => $name])->update(['value' => $value['value'],'status'=> $value['status']??0]);
                }else{
                 StaticPage::where(['key' => 'about_us','name' => $name])->update(['value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']]);
-
                }
             } else {
-                StaticPage::Create(['key' => 'about_us', 'name' => $name,'value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']??'']);
+                StaticPage::create(['key' => 'about_us', 'name' => $name,'value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']??'']);
             }
         }
 
         
-        return redirect('admin/about-us')->with('success', 'updated successfully');
+        return redirect()->route('admin.about_us.show')->with('success', 'updated successfully');
     }
 }

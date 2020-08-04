@@ -19,15 +19,5 @@ class ContactUsController extends Controller
         return view('backend.contactUs.index', compact('contacts'));
     }
 
- 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
