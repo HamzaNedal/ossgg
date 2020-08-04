@@ -1,7 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\HomeController as BackendHomeController;
+use App\Http\Controllers\Backend\MembersContrllers;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\CompanyController;
+use App\Http\Controllers\Backend\PartnaersControlle;
+use App\Http\Controllers\Backend\SectorController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\ServiceController;
+use App\Http\Controllers\Backend\ContactUsController;
+use App\Http\Controllers\Backend\StaticPageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,10 +35,9 @@ Route::get('/details/news/{id}', [HomeController::class,'ditailsNews'])->name('d
 
 Auth::routes(['register' => false]);
 
-// Route::get('/home', [HomeController::class,]'index')->name('home');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function () {
-    Route::get('/home', [HomeController::class,'index'])->name('admin.home');
+    Route::get('/home', [BackendHomeController::class,'index'])->name('admin.home');
     //User
     Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
     Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
