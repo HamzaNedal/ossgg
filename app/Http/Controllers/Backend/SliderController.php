@@ -29,7 +29,9 @@ class SliderController extends Controller
             return view('backend.datatables.actions',compact('data','route'));
         })->addColumn('image', function ($data) {
            return view('backend.datatables.sliderImages',compact('data'));
-       })->rawColumns(['image','action'])
+        })->addColumn('background_image', function ($data) {
+              return view('backend.datatables.background_imageSlider',compact('data'));
+        })->rawColumns(['image','background_image','action'])
         ->make(true);
      }
     /**

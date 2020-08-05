@@ -6,7 +6,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="form-users" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="form-users">
+            <table id="form" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="form-users">
                 <thead>
                     <tr>
                         <th>Name</th>

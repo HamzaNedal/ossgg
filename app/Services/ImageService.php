@@ -8,7 +8,7 @@ class ImageService {
     {
         $extension = $file->getClientOriginalExtension();
         $fileName = time() . uniqid() . '.' . $extension;
-        request('image')->move(public_path() . '/' . $path . '/', $fileName);
+        $file->move(public_path() . '/' . $path . '/', $fileName);
         return $fileName;
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateContactUsRequest;
+use App\Http\Requests\CreateServiceDataRequest;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\ContactUs;
@@ -16,9 +18,8 @@ use App\Models\StaticPage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
-use app\Http\Requests\CreateServiceDataRequest;
-use app\Http\Requests\CreateContactUsRequest;
 use App\Services\ImageService;
+
 class HomeController extends Controller
 {
     /**
@@ -40,23 +41,23 @@ class HomeController extends Controller
     {
         $sliders = Slider::get();
 
-        $about_us = StaticPage::where(['key'=>'about_us','status'=>1])->where('value','<>','')->get();
+        $about_us = StaticPage::where(['key' => 'about_us', 'status' => 1])->where('value', '<>', '')->get();
         $companies = Company::get();
         $partnaers = Partnaers::get();
         $service = Service::orderBy('updated_at', 'desc')->first();
         $sectors = Sector::get();
-        $posts = Post::orderBy('updated_at','desc')->limit(3)->get();
-        $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
+        $posts = Post::orderBy('updated_at', 'desc')->limit(3)->get();
+        $users = Members::orderBy('updated_at', 'desc')->limit(8)->get('name');
         $static_page = StaticPage::get();
-        $static_page = array_column($static_page->toArray(),'value','name');
-        return view('frontend.welcome',compact('sliders','about_us','partnaers','companies','service','sectors','posts','users','static_page'));
+        $static_page = array_column($static_page->toArray(), 'value', 'name');
+        return view('frontend.welcome', compact('sliders', 'about_us', 'partnaers', 'companies', 'service', 'sectors', 'posts', 'users', 'static_page'));
     }
 
-    public function storeServiceResquests(CreateServiceDataRequest $request,ImageService $imageService)
+    public function storeServiceResquests(CreateServiceDataRequest $request, ImageService $imageService)
     {
         $input = $request->all();
         if (request()->hasfile('file')) {
-            $input['file'] = $imageService->upload($request->file,'files');
+            $input['file'] = $imageService->upload($request->file, 'files');
         }
         ServiceRequests::Create($input);
         return back();
@@ -69,12 +70,12 @@ class HomeController extends Controller
 
     public function getNews()
     {
-       $posts =  Post::paginate(9);
-       $static_page = StaticPage::get();
-       $static_page = array_column($static_page->toArray(),'value','name');
-       $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
+        $posts =  Post::paginate(9);
+        $static_page = StaticPage::get();
+        $static_page = array_column($static_page->toArray(), 'value', 'name');
+        $users = Members::orderBy('updated_at', 'desc')->limit(8)->get('name');
 
-        return view('frontend.news.news',compact('posts','static_page','users'));
+        return view('frontend.news.news', compact('posts', 'static_page', 'users'));
     }
 
 
@@ -83,10 +84,9 @@ class HomeController extends Controller
         $id = (int) $id;
         $post = Post::findOrFail($id);
         $static_page = StaticPage::get();
-        $static_page = array_column($static_page->toArray(),'value','name');
-        $users = Members::orderBy('updated_at','desc')->limit(8)->get('name');
-        $posts = Post::with('category')->where(['category_id'=>$post->category_id])->where('id','<>',$post->id)->orderBy('created_at','desc')->limit(2)->get();
-        return view('frontend.news.details',compact('post','static_page','posts','users'));
+        $static_page = array_column($static_page->toArray(), 'value', 'name');
+        $users = Members::orderBy('updated_at', 'desc')->limit(8)->get('name');
+        $posts = Post::with('category')->where(['category_id' => $post->category_id])->where('id', '<>', $post->id)->orderBy('created_at', 'desc')->limit(2)->get();
+        return view('frontend.news.details', compact('post', 'static_page', 'posts', 'users'));
     }
-   
 }

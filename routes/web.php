@@ -125,9 +125,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
     Route::post('/services', [ServiceController::class,'store'])->name('admin.service.store');
     Route::get('/service/{id}/edit', [ServiceController::class,'edit'])->name('admin.service.edit');
     Route::put('/service/{id}', [ServiceController::class,'update'])->name('admin.service.update');
-    Route::delete('/service/delete/{id}', [ServiceController::class,'destroy'])->name('admin.service.destroy');
+    Route::delete('/service/{id}', [ServiceController::class,'destroy'])->name('admin.service.destroy');
     Route::get('/service_requests', [ServiceController::class,'serviceResquests'])->name('admin.service_requests.index');
-    Route::get('/service_requests/delete/{id}', [ServiceController::class,'destroyserviceResquests'])->name('admin.service_requests.destroy');
+    Route::get('/service_requests/datatable', [ServiceController::class,'datatableServiceResquests'])->name('admin.service_requests.datatable');
+    Route::delete('/service_requests/{id}', [ServiceController::class,'destroyserviceResquests'])->name('admin.service_requests.destroy');
     //end services
 
     //contactUs

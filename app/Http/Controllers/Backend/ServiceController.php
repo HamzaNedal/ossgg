@@ -109,10 +109,21 @@ class ServiceController extends Controller
 
     public function serviceResquests()
     {
-       $serviceResquests =  ServiceRequests::get();
-       return view('backend.services.service_requests.index', compact('serviceResquests'));
+    //    $serviceResquests =  ServiceRequests::get();
+       return view('backend.services.service_requests.index');
     }
-
+    protected function datatableServiceResquests(){
+        $serviceResquests = ServiceRequests::get();
+        $route = 'service_requests';
+         return DataTables::of($serviceResquests)->addColumn('actions', function ($data) use($route) {
+             return view('backend.datatables.actions',compact('data','route'));
+         })->addColumn('title', function ($data){
+            return $data->getService->title;
+         })->addColumn('sectorName', function ($data){
+            return $data->getService->name;
+         })->rawColumns(['title','sectorName','actions'])
+         ->make(true);
+     }
     public function destroyserviceResquests($id)
     {
         $id = (int) $id;

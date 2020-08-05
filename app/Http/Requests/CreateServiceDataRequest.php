@@ -27,7 +27,7 @@ class CreateServiceDataRequest extends FormRequest
             'name' => 'required|string',
             'country' => 'required|string',
             'phone_country_code' => 'required|integer',
-            'phone_no' => 'required|integer',
+            'phone_no' => 'required|numeric|digits:10',
             'email' => 'required|email',
             'name_of_project' => 'required|string',
             'sector_of_project_id' => 'required|integer',

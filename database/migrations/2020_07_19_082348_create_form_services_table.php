@@ -16,10 +16,9 @@ class CreateFormServicesTable extends Migration
         Schema::create('form_services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('position');
             $table->string('country');
             $table->integer('phone_country_code');
-            $table->integer('phone_no');
+            $table->string('phone_no');
             $table->string('email');
             $table->string('name_of_project');
             $table->unsignedBigInteger('sector_of_project_id');
