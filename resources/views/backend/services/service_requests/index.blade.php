@@ -49,11 +49,11 @@
                   { data: 'phone_no',
                         render: function(data, type, row, meta)
                       {
-                          return row.phone_country_code+' '+row.phone_no;
+                          return '+'+row.phone_country_code+''+row.phone_no;
                       },
                    },
                   { data: 'name_of_project', name: 'name_of_project' },
-                  { data: 'sectorName', name: 'sectorName' },
+                  { data: 'sector_of_project_id', name: 'sector_of_project_id' },
                   { data: 'short_description', name: 'short_description' },
                   { data: 'country', name: 'country' },
                   { data: 'created_at', name: 'created_at' },

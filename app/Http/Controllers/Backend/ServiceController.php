@@ -119,9 +119,9 @@ class ServiceController extends Controller
              return view('backend.datatables.actions',compact('data','route'));
          })->addColumn('title', function ($data){
             return $data->getService->title;
-         })->addColumn('sectorName', function ($data){
-            return $data->getService->name;
-         })->rawColumns(['title','sectorName','actions'])
+         })->addColumn('sector_of_project_id', function ($data){
+            return $data->getSector->name;
+         })->rawColumns(['title','sector_of_project_id','actions'])
          ->make(true);
      }
     public function destroyserviceResquests($id)
