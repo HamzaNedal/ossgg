@@ -1,4 +1,5 @@
 @extends('backend.layouts.app')
+@section('title', 'Services')
 
 @section('content')
 
@@ -26,7 +27,6 @@
                     @include('backend.services.service_requests.table')
             </div>
         </div>
-
     </div>
 @push('js')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
@@ -56,6 +56,7 @@
                   { data: 'sector_of_project_id', name: 'sector_of_project_id' },
                   { data: 'short_description', name: 'short_description' },
                   { data: 'country', name: 'country' },
+                  { data: 'file', name: 'file' },
                   { data: 'created_at', name: 'created_at' },
                   {data: 'actions', name: 'actions', orderable: false, searchable: false}
               ]

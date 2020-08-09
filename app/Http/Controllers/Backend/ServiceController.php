@@ -86,7 +86,7 @@ class ServiceController extends Controller
     public function update(Request $request,  $id)
     {
         $id = (int) $id;
-        $input =$request->all();
+        $input = $request->except(['_token','_method']);
         $service = Service::findOrFail($id);
         Service::where('id',$id)->update($input);
         return redirect()->route('admin.service.index')->with('success', 'The Service has been updated successfully');
@@ -121,7 +121,9 @@ class ServiceController extends Controller
             return $data->getService->title;
          })->addColumn('sector_of_project_id', function ($data){
             return $data->getSector->name;
-         })->rawColumns(['title','sector_of_project_id','actions'])
+         })->addColumn('file', function ($data){
+            return '<a href="'.asset("/files/".$data->file).'">Download File</a>';
+         })->rawColumns(['file','title','sector_of_project_id','actions'])
          ->make(true);
      }
     public function destroyserviceResquests($id)

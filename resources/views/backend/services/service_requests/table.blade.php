@@ -20,6 +20,7 @@
                         <th>Sector Of Project</th>
                         <th>Short Description</th>
                         <th>Country</th>
+                        <th>File</th>
                         <th>Created at </th>
                         <th>Acation</th>
                     </tr>

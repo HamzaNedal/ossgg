@@ -11,7 +11,7 @@ class Partnaers extends Model
     protected $table = 'partnaers';
 
     protected $fillable = [
-        'title', 'link','logo',
+        'title', 'link','image',
     ];
     protected $casts = [
         'created_at'=>'date:Y-m-d h:m:s'

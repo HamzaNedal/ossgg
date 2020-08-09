@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'email|unique:users,email,'.$this->id,
             'image' => 'image|nullable',
             'gender' => 'integer',
+            'dob' => 'sometimes|date',
         ];
     }
 
@@ -35,6 +36,9 @@ class UpdateUserRequest extends FormRequest
     {
         if($this->password == null) {
             $this->request->remove('password');
+        }
+        if($this->dob == null) {
+            $this->request->remove('dob');
         }
     }
 }

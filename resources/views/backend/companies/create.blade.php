@@ -1,4 +1,5 @@
 @extends('backend.layouts.app')
+@section('title', 'create company')
 
 @section('content')
 

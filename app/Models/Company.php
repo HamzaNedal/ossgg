@@ -11,7 +11,7 @@ class Company extends Model
     protected $table = 'companies';
 
     protected $fillable = [
-        'name','description','link','logo','file'
+        'name','description','link','image','file'
     ];
     protected $casts = [
         'created_at'=>'date:Y-m-d h:m:s'

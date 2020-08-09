@@ -50,7 +50,7 @@ class CompanyController extends Controller
             $input['image'] = $imageService->upload($request->image,'company');
         }
         Company::Create($input);
-        return redirect()->rotue('admin.company.index')->with('success', 'The Company has been added successfully');
+        return redirect()->route('admin.company.index')->with('success', 'The Company has been added successfully');
     }
 
     /**
@@ -90,7 +90,7 @@ class CompanyController extends Controller
             $input['image'] = $imageService->upload($request->image,'company');
         }
         Company::where('id', $id)->update($input);
-        return redirect()->rotue('admin.company.index')->with('success', 'The Company has been updated successfully');
+        return redirect()->route('admin.company.index')->with('success', 'The Company has been updated successfully');
     }
 
     /**

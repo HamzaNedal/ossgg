@@ -29,6 +29,7 @@ class CreateUserRequest extends FormRequest
             'image' => 'image|nullable',
             'gender' => 'required|integer',
             'password' => 'required|string',
+            'dob'=>'nullable|date'
         ];
     }
 }

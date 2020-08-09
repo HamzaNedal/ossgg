@@ -1,4 +1,5 @@
 @extends('backend.layouts.app')
+@section('title', 'Create Partner')
 
 @section('content')
 
@@ -19,7 +20,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary mt-2 mr-2">
                           <div class="card-header">
-                            <h3 class="card-title">Add Partnaer</h3>
+                            <h3 class="card-title">Add Partner</h3>
                           </div>
                           <form action="{{ route('admin.partnaer.store') }}" method="post" enctype="multipart/form-data">
                             @csrf

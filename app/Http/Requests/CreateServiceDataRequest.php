@@ -33,7 +33,7 @@ class CreateServiceDataRequest extends FormRequest
             'sector_of_project_id' => 'required|integer',
             'service_id' => 'required|integer',
             'short_description' => 'required|string|max:255',
-            'file' => 'required|file|max:255',
+            'file' => 'required|file|max:5120',
         ];
     }
 }

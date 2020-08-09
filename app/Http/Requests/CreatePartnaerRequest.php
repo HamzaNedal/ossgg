@@ -26,7 +26,7 @@ class CreatePartnaerRequest extends FormRequest
         return [
             'title' => 'required|string',
             'link' => 'required|url',
-            'logo' => 'required|image',
+            'image' => 'required|image',
         ];
     }
 }

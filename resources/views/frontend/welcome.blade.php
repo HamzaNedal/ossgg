@@ -7,6 +7,32 @@
     h4{
         text-transform: capitalize;
     }
+    .item-01 h4::before{
+        content: '';
+    position: absolute;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-color: #FFD922;
+    border-radius: 50%;
+    top: 0;
+    /* left: 0; */
+    margin-left: -32px;
+    z-index: -1;
+}
+.item-02 h4::before{
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-color: #FFD922;
+    border-radius: 50%;
+    top: 0;
+    /* left: 0; */
+    margin-left: -32px;
+    z-index: -1;
+}
 </style>
 @endpush
     @if (!$sliders->isEmpty())
@@ -23,7 +49,6 @@
                                     <div class="caption">
                                         <div class="title">
                                             <h4>{{ $slider->title }}</h4>
-                                            <span class="circle"></span>
                                         </div>
                                         <p>{{$slider->description}}</p>
                                         @if ($slider->link)
@@ -46,7 +71,6 @@
                                     <div class="caption">
                                         <div class="title">
                                             <h4>{{ $slider->title }}</h4>
-                                            <span class="circle"></span>
                                         </div>
                                         <p>{{$slider->description}}.</p>
                                         @if ($slider->link)
@@ -84,7 +108,18 @@
 
                     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                         <div class="containt wow zoomIn">
-                            <img src="{{ asset('frontend') }}/img/eye.png" alt="">
+                            @if ($about->name == 'our vision')
+                             <img src="{{ asset('frontend') }}/img/eye.png" alt="">
+                            @endif
+                            @if ($about->name == 'our mission')
+                            <img src="{{ asset('frontend') }}/img/target.png" alt="">
+                           @endif
+                            @if ($about->name == 'our values')
+                            <img src="{{ asset('frontend') }}/img/correct.png" alt="">
+                            @endif
+                            @if ($about->name == 'our policies')
+                            <img src="{{ asset('frontend') }}/img/shield (1).png" alt="">
+                            @endif
                             <div class="item-containt">
                                 <h4 style="text-transform: capitalize;">{{ $about->name }}</h4>
                                 <p>
@@ -181,7 +216,7 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="title wow jackInTheBox">
-                                    <h4>{{ $company->name }}</h4>
+                                    <a href="{{ $company->link }}"><h4>{{ $company->name }}</h4></a>
                                     <p>
                                         {{ $company->description }}
                                     </p>
@@ -405,7 +440,7 @@
         <section class="partnaers" id="partnaers">
             <div class="container">
                 <div class="section-title  wow slideInLeft">
-                    <h2>Our Partnaers</h2>
+                    <h2>Our Partners</h2>
                     <span></span>
                 </div>
             </div>

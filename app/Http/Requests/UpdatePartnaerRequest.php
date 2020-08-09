@@ -26,7 +26,7 @@ class UpdatePartnaerRequest extends FormRequest
         return[
             'title' => 'required|string',
             'link' => 'required|string',
-            'logo' => 'nullable',
+            'image' => 'sometimes|image',
         ];
     }
 }

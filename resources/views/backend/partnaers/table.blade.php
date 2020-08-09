@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
           <h3 class="card-title">
-            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('admin.partnaer.create') }}">Add partnaer</a>
+            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('admin.partnaer.create') }}">Add partner</a>
           </h3>
         </div>
         <!-- /.card-header -->

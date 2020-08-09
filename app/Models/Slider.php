@@ -11,7 +11,7 @@ class Slider extends Model
     protected $table = 'sliders';
 
     protected $fillable = [
-        'title','description','image','background_image'
+        'title','description','image','background_image','link'
     ];
     protected $casts = [
         'created_at'=>'date:Y-m-d h:m:s'

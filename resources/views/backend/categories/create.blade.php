@@ -1,4 +1,5 @@
 @extends('backend.layouts.app')
+@section('title', 'Add Categroy')
 
 @section('content')
 

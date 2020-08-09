@@ -27,7 +27,7 @@ class CreateCompanyRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'link' => 'required|url',
-            'logo' => 'required|image',
+            'image' => 'required|image',
         ];
     }
 }

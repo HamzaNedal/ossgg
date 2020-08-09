@@ -3,6 +3,11 @@
 <head>
     @include('frontend.base_layout.header')
     @stack('css')
+    <style>
+         .slideInLeft{
+        text-transform: capitalize;
+    }
+    </style>
 </head>
 <body>
     @include('frontend.base_layout.nav')

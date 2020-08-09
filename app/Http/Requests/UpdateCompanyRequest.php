@@ -27,7 +27,7 @@ class UpdateCompanyRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'link' => 'required|string',
-            'logo' => 'nullable',
+            'image' => 'sometimes|image',
         ];
     }
 }

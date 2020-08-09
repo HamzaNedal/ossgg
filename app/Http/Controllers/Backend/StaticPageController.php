@@ -93,37 +93,30 @@ class StaticPageController extends Controller
     {
         $input = $request->all();
         unset($input['_token']);
-
+        //create new inputs contains name and value for about us key 
         if(isset($input['newInfo'])){
             $newData = $input['newInfo'];
             foreach ($newData as $key => $data) {
                 if (isset($data['file'])) {
                     $data['file'] = $imageService->upload($data['file'],'iconsAboutUs');
                 }
-                StaticPage::Create(['key' => 'about_us', 'name' => $data['name'],'value' => $data['value'],'status'=> $data['status']??0,'icon'=>$data['file']??'']);
+                StaticPage::create(['key' => 'about_us', 'name' => $data['name'],'value' => $data['value'],'status'=> $data['status']??0,'icon'=>$data['file']??'']);
             }
             unset($input['newInfo']);
         }
-
+        //create and update data by key and name
         foreach ($input as $name => $value) {
             if (isset($value['file'])) {
                 $data['file'] = $imageService->upload($value['file'],'iconsAboutUs');
             }
            $name = str_replace('_',' ',$name);
             $keyExist =  StaticPage::where(['key' => 'about_us','name'=>$name])->first();
-            if($name == 'Who are OSSGG?'){
-                $value['status'] = 1;
-            }
-            if ($keyExist) {
-               $issetFile = $value['file'] ?? false;
-               if(!$issetFile){
-                StaticPage::where(['key' => 'about_us','name' => $name])->update(['value' => $value['value'],'status'=> $value['status']??0]);
-               }else{
-                StaticPage::where(['key' => 'about_us','name' => $name])->update(['value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']]);
-               }
-            } else {
-                StaticPage::create(['key' => 'about_us', 'name' => $name,'value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']??'']);
-            }
+            if($name == 'Who are OSSGG?'):
+                 $value['status'] = 1 ;
+            endif;
+            $keyExist == true ? 
+            StaticPage::where(['key' => 'about_us','name' => $name])->update(['value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']??null])
+            : StaticPage::create(['key' => 'about_us', 'name' => $name,'value' => $value['value'],'status'=> $value['status']??0,'icon'=>$value['file']??'']);
         }
 
         

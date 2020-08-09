@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreatePartnaerRequest;
+use App\Http\Requests\UpdatePartnaerRequest;
 use App\Models\Partnaers;
 use Illuminate\Http\Request;
-use app\Http\Requests\CreatePartnaerRequest;
-use app\Http\Requests\UpdatePartnaerRequest;
+
 use App\Services\ImageService;
 use Yajra\Datatables\Datatables;
 
@@ -94,7 +95,7 @@ class PartnaersControlle extends Controller
     {
         $id = (int) $id;
         $input = $request->except(['_token','_method']);
-        $partnaers = Partnaers::findOrFailOrFail($id);        
+        $partnaers = Partnaers::findOrFail($id);        
         if (request()->hasfile('image')) {
             $input['image'] = $imageService->upload($request->image,'partnaers');
         }

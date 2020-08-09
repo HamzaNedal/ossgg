@@ -3,6 +3,7 @@
   <head>
       @include('backend.base_layout.header.header')
     @stack('css')
+    <title>@yield('title')</title>
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">

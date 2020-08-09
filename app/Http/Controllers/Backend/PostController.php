@@ -56,16 +56,17 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request,ImageService $imageService)
     {
-
+        $input = $request->except(['_token','_method']);
         $detail= $imageService->convertBaseImageTOUrl($request->description,'images');
         if (request()->hasfile('image')) {
             $input['image'] =  $imageService->upload($request->image,'posts');
         }
+        
         Post::create([
             'title' => $request->title,
             'description'=>$detail,
             'category_id'=>$request->category_id,
-            'image'=>$request->image,
+            'image'=> $input['image'],
         ]);
         return redirect()->route('admin.post.index')->with('success', 'The Post has been added successfully');
 

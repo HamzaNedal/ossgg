@@ -26,7 +26,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'title'=>'required|string',
             'category_id'=>'required|integer',
-            'image'=>'required|image',
+            'image'=>'sometimes|image',
             'description'=>'required|string',
         ];
     }

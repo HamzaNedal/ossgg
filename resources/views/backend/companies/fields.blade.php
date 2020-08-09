@@ -6,11 +6,11 @@
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" name="description" id="description" cols="30" rows="10"  placeholder="enter description to company">@isset($company){{$company->description}}@endisset</textarea>
+        <textarea class="form-control" name="description" id="description" cols="30" rows="10"  placeholder="enter description to company">@isset($company){{$company->description}}@endisset{{ old('description') }}</textarea>
         </div>
     <div class="form-group">
         <label for="link">Link</label>
-        <input type="text" class="form-control" id="link" @isset($company) value="{{ $company->link }}" @endisset value="{{ old('name') }}" name="link" placeholder="enter link company">
+        <input type="text" class="form-control" id="link" @isset($company) value="{{ $company->link }}" @endisset value="{{ old('link') }}" name="link" placeholder="enter link company">
       </div>
 
   
