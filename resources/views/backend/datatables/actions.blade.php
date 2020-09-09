@@ -2,7 +2,8 @@
     @method('delete')
     @csrf
 <div class='btn-group'>
-    @if ($route!='service_requests')
+    {{-- @dd($route == "profile") --}}
+    @if ($route!='service_requests' && $route != "profile")
     
     <a href="{{ route('admin.'.$route.'.edit', [$data->id]) }}" class='btn btn-default btn-xs'><i class="fa fa-edit"></i></a>
     @endif

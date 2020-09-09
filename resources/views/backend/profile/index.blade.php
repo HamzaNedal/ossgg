@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('title', 'Contact us')
+@section('title', 'Posts')
 
 @section('content')
 
@@ -10,13 +10,22 @@
     <div class="content">
         <div class="clearfix"></div>
 
-        {{-- @include('flash::message') --}}
+        @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+        {{  Session::get('success') }}
+        </div>
+      @endif
+      @if(Session::has('error'))
+      <div class="alert alert-denger" role="alert">
+      {{  Session::get('error') }}
+      </div>
+      @endif
 
         <div class="clearfix"></div>
         <div class="box box-primary">
  
             <div class="box-body">
-                    @include('backend.contactUs.table')
+                    @include('backend.profile.table')
             </div>
         </div>
 
@@ -34,15 +43,11 @@
           $('#form').DataTable({
               processing: true,
               serverSide: true,
-              ajax: '{!! route('admin.contactUs.datatable') !!}',
+              ajax: '{!! route('admin.profile.datatable') !!}',
               columns: [
-                  { data: 'name', name: 'name' },
-                  { data: 'email', name: 'email' },
-                  { data: 'subject', name: 'subject' },
-                  { data: 'message', name: 'message' },
+                  { data: 'file', name: 'file' },
                   { data: 'created_at', name: 'created_at' },
-                  {data: 'action', name: 'action', orderable: false, searchable: false}
-
+                  {data: 'actions', name: 'actions', orderable: false, searchable: false}
               ]
           });
       });

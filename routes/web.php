@@ -14,6 +14,8 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\StaticPageController;
+use App\Http\Controllers\Backend\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +32,7 @@ Route::post('/', [HomeController::class,'storeServiceResquests'])->name('storeSe
 Route::post('/contact-us', [HomeController::class,'storeContactUs'])->name('storeContactUs');
 Route::get('/news', [HomeController::class,'getNews'])->name('news');
 Route::get('/details/news/{id}', [HomeController::class,'ditailsNews'])->name('details.news');
+Route::get('/download', [ProfileController::class,'download'])->name('profile.download');
 
 
 
@@ -38,25 +41,25 @@ Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function () {
     Route::get('/home', [BackendHomeController::class,'index'])->name('admin.home');
-    //User
-    Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
-    Route::get('/users/datatable', [UserController::class,'datatable'])->name('admin.users.datatable');
-    Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
-    Route::post('/users', [UserController::class,'store'])->name('admin.users.store');
-    Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
-    Route::put('/users/{id}', [UserController::class,'update'])->name('admin.users.update');
-    Route::delete('/users/{id}', [UserController::class,'destroy'])->name('admin.users.destroy');
-    //end User
+    // //User
+    // Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
+    // Route::get('/users/datatable', [UserController::class,'datatable'])->name('admin.users.datatable');
+    // Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
+    // Route::post('/users', [UserController::class,'store'])->name('admin.users.store');
+    // Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
+    // Route::put('/users/{id}', [UserController::class,'update'])->name('admin.users.update');
+    // Route::delete('/users/{id}', [UserController::class,'destroy'])->name('admin.users.destroy');
+    // //end User
 
-    //members
-    Route::get('/members', [MembersContrllers::class,'index'])->name('admin.member.index');
-    Route::get('/members/datatable', [MembersContrllers::class,'datatable'])->name('admin.member.datatable');
-    Route::get('/member/create', [MembersContrllers::class,'create'])->name('admin.member.create');
-    Route::post('/members', [MembersContrllers::class,'store'])->name('admin.member.store');
-    Route::put('/member/{id}', [MembersContrllers::class,'update'])->name('admin.member.update');
-    Route::get('/member/{id}/edit', [MembersContrllers::class,'edit'])->name('admin.member.edit');
-    Route::delete('/member/{id}', [MembersContrllers::class,'destroy'])->name('admin.member.destroy');
-    //end members
+    // //members
+    // Route::get('/members', [MembersContrllers::class,'index'])->name('admin.member.index');
+    // Route::get('/members/datatable', [MembersContrllers::class,'datatable'])->name('admin.member.datatable');
+    // Route::get('/member/create', [MembersContrllers::class,'create'])->name('admin.member.create');
+    // Route::post('/members', [MembersContrllers::class,'store'])->name('admin.member.store');
+    // Route::put('/member/{id}', [MembersContrllers::class,'update'])->name('admin.member.update');
+    // Route::get('/member/{id}/edit', [MembersContrllers::class,'edit'])->name('admin.member.edit');
+    // Route::delete('/member/{id}', [MembersContrllers::class,'destroy'])->name('admin.member.destroy');
+    // //end members
 
     //Category
     Route::get('/categories', [CategoryController::class,'index'])->name('admin.category.index');
@@ -135,6 +138,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
     Route::get('/contact-us', [ContactUsController::class,'index'])->name('admin.contactUs.index');
     Route::get('/contactUs/datatable', [ContactUsController::class,'datatable'])->name('admin.contactUs.datatable');
     Route::delete('/contact-us/{id}', [ContactUsController::class,'destroy'])->name('admin.contactUs.destroy');
+    Route::put('/contact-us/status/{contact}', [ContactUsController::class,'status'])->name('admin.contactUs.status.update');
     //end contactUs
 
     //static_page
@@ -147,4 +151,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
     Route::get('/about-us', [StaticPageController::class,'showAboutUs'])->name('admin.about_us.show');
     Route::post('/about-us', [StaticPageController::class,'updateAboutUs'])->name('admin.about_us.store');
     //end about us
+
+      //profile
+      Route::get('/profile', [ProfileController::class,'index'])->name('admin.profile.index');
+      Route::get('/profile/datatable', [ProfileController::class,'datatable'])->name('admin.profile.datatable');
+      Route::get('/profile/create', [ProfileController::class,'create'])->name('admin.profile.create');
+      Route::post('/profile', [ProfileController::class,'store'])->name('admin.profile.store');
+      Route::delete('/profile/{id}', [ProfileController::class,'destroy'])->name('admin.profile.destroy');
+      //end profile us
 });

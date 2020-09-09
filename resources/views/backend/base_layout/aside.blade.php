@@ -24,13 +24,12 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
   
-        <li class="nav-item has-treeview">
+        {{-- <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
             <p>
              Users
               <i class="fas fa-angle-left right"></i>
-              {{-- <span class="badge badge-info right">6</span> --}}
             </p>
           </a>
           <ul class="nav nav-treeview">
@@ -41,21 +40,20 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> --}}
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-users"></i>
+            <i class="nav-icon fa fa-user"></i>
             <p>
-             Members
+             Profile
               <i class="fas fa-angle-left right"></i>
-              {{-- <span class="badge badge-info right">6</span> --}}
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('admin.member.index') }}" class="nav-link">
+              <a href="{{ route('admin.profile.index') }}" class="nav-link">
                 <i class="fa fa-users nav-icon"></i>
-                <p>Show Members</p>
+                <p>Show Profile</p>
               </a>
             </li>
           </ul>

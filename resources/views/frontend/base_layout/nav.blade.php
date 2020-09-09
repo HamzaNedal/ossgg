@@ -7,18 +7,14 @@
                     <img src="{{ asset('frontend') }}/img/logo.png" alt="">
                 </a>
                 <div class="d-flex flex-row order-2 order-lg-3">
-                    @if (auth()->check())
-                         <a href="{{ route('admin.home') }}" class="btn">OSSGG Profile</a>
-                    @else
-                    <a href="{{ route('login') }}" class="btn">Login</a>
+                    <a target="_blank" href="{{ route('profile.download') }}" class="btn">OSSGG Profile</a>
 
-                    @endif
                     <ul class="navbar-nav flex-row">
-                        <li class="nav-item"><a class="nav-link px-2" href="{{ $static_page['facebook']??'#' }}"><i class="fa fa-facebook"></i></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="{{ $static_page['twitter']??'#' }}"><i class="fa fa-twitter"></i></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="{{ $static_page['instagram'] ??'#'}}"><i class="fa fa-instagram"></i></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="{{ $static_page['youtube'] ?? '#'}}"><i class="fa fa-youtube"></i></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="{{ $static_page['linkedin'] ?? '#' }}"><i class="fa fa-linkedin"></i></a></li>
+                        <li class="nav-item"><a target="_blank" rel="nofollow" class="nav-link px-2" href="{{ $static_page['facebook']??'#' }}"><i class="fa fa-facebook"></i></a></li>
+                        <li class="nav-item"><a target="_blank" rel="nofollow" class="nav-link px-2" href="{{ $static_page['twitter']??'#' }}"><i class="fa fa-twitter"></i></a></li>
+                        <li class="nav-item"><a target="_blank" rel="nofollow" class="nav-link px-2" href="{{ $static_page['instagram'] ??'#'}}"><i class="fa fa-instagram"></i></a></li>
+                        <li class="nav-item"><a target="_blank" rel="nofollow" class="nav-link px-2" href="{{ $static_page['youtube'] ?? '#'}}"><i class="fa fa-youtube"></i></a></li>
+                        <li class="nav-item"><a target="_blank" rel="nofollow" class="nav-link px-2" href="{{ $static_page['linkedin'] ?? '#' }}"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarNavDropdown">

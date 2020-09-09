@@ -15,5 +15,6 @@
    @yield('content') 
    @include('frontend.base_layout.footer')
 </body>
-@include('frontend.base_layout.footer-meta')
+    @include('frontend.base_layout.footer-meta')
+  
 </html>

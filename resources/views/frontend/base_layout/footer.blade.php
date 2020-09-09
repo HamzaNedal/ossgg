@@ -28,19 +28,23 @@
                 </div>
                
                 <div class="col-md-4 members">
-                    <h4>Members</h4>
+                    <h4>Members :</h4>
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <ul class="list-unstyled">
-                                @if (!$users->isEmpty())
-                                    @foreach ($users as $key => $user)
+                                @if (!$companies->isEmpty())
+                                    @foreach ($companies as $key => $company)
                                     {{-- {{ dd($key) }} --}}
                                     @if ($key >= 4)
-                                        @push('member')
-                                            <li style="text-transform: capitalize;">{{ $user->name }}</li>
+                                        @push('company')
+                                            <li style="text-transform: capitalize;">
+                                                <a target="_blank" rel="nofollow" href="{{ $company->link }}"> {{ $company->name }}</a>
+                                            </li>
                                         @endpush
                                         @else
-                                        <li style="text-transform: capitalize;">{{ $user->name }}</li>
+                                            <li style="text-transform: capitalize;">
+                                                <a  target="_blank" rel="nofollow" href="{{ $company->link }}"> {{ $company->name }}</a>
+                                            </li>
                                     @endif
                                     @endforeach
                                 @endif
@@ -48,7 +52,7 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="list-unstyled">
-                            @stack('member')
+                            @stack('company')
                             </ul>
                         </div>
                     </div>

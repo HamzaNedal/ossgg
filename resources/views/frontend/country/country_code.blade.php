@@ -1,4 +1,17 @@
-<select class="custom-select my-1 mr-sm-2" id="" name="phone_country_code">
+{{-- <div class="form-group">
+	<label>Minimal</label>
+	<select class="form-control select2bs4" style="width: 100%;">
+	  <option selected="selected">Alabama</option>
+	  <option>Alaska</option>
+	  <option>California</option>
+	  <option>Delaware</option>
+	  <option>Tennessee</option>
+	  <option>Texas</option>
+	  <option>Washington</option>
+	</select>
+  </div> --}}
+
+<select class="custom-select my-1 mr-sm-2 select2bs4" id="phone_country_code" name="phone_country_code">
 	<option selected>Phone Country Code ..</option>
 	<option data-countryCode="GB" value="44" >UK (+44)</option>
 	<option data-countryCode="US" value="1">USA (+1)</option>

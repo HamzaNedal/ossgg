@@ -15,7 +15,7 @@
       <small><a href="{{ route('admin.category.create') }}">Add category</a></small>
    </div>
        <div class="form-group">
-      <label for="photoInput">Image(The image must be size 336x504)</label>
+      <label for="photoInput">Image</label>
       <div class="input-group">
         <div class="custom-file">
           <input type="file" class="" id="photoInput" name="image">

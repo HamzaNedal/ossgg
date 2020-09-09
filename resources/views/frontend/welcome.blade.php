@@ -52,7 +52,7 @@
                                         </div>
                                         <p>{{$slider->description}}</p>
                                         @if ($slider->link)
-                                           <a href="{{ $slider->link }}" class="btn btn-one">Learn More</a>
+                                           <a href="{{ $slider->link }}" class="btn btn-one" target="_blank" rel="nofollow">Learn More</a>
                                         @endif
                                         <a href="#contact" class="btn btn-tow">Contact Us</a>
                                     </div>
@@ -74,7 +74,7 @@
                                         </div>
                                         <p>{{$slider->description}}.</p>
                                         @if ($slider->link)
-                                        <a href="{{ $slider->link }}" class="btn btn-one">Learn More</a>
+                                        <a href="{{ $slider->link }}" class="btn btn-one" target="_blank" rel="nofollow">Learn More</a>
                                      @endif
                                         <a href="#contact" class="btn btn-tow">Contact Us</a>
                                     </div>
@@ -136,61 +136,6 @@
 
                 <div class="row contint-card">
                     @stack('about_us')
-
-                  
-             
-                    {{-- <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                        <div class="containt wow zoomIn">
-                            <img src="{{ asset('frontend') }}/img/eye.png" alt="">
-                            <div class="item-containt">
-                                <h4>Our Vision</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="containt wow zoomIn">
-                            <img src="{{ asset('frontend') }}/img/target.png" alt="">
-                            <div class="item-containt">
-                                <h4>Our Vision</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="containt wow zoomIn">
-                            <img src="{{ asset('frontend') }}/img/correct.png" alt="">
-                            <div class="item-containt">
-                                <h4>Our Vision</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                        <div class="containt wow zoomIn">
-                            <img src="{{ asset('frontend') }}/img/shield (1).png" alt="">
-                            <div class="item-containt">
-                                <h4>Our Vision</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
     
             </div>
@@ -212,11 +157,11 @@
                     <div class="item">
                         <div class="row justify-content-center align-items-center slide">
                             <div class="col-lg-4 col-md-4 col-sm-12  mb-5">
-                                <img src="{{ asset('company/'.$company->image) }}" alt="" class="wow fadeInUpBig">
+                                <a href="{{ $company->link }}" target="_blank" rel="nofollow"><img src="{{ asset('company/'.$company->image) }}" alt="" class="wow fadeInUpBig"></a>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12">
                                 <div class="title wow jackInTheBox">
-                                    <a href="{{ $company->link }}"><h4>{{ $company->name }}</h4></a>
+                                    <a href="{{ $company->link }}" target="_blank" rel="nofollow"><h4>{{ $company->name }}</h4></a>
                                     <p>
                                         {{ $company->description }}
                                     </p>
@@ -225,42 +170,7 @@
                         </div>
                     </div>
                     @endforeach
-                    {{-- <div class="item">
-                        <div class="row justify-content-center align-items-center slide">
-                            <div class="col-lg-4 col-md-4 col-sm-12  mb-5">
-                                <img src="{{ asset('frontend') }}/img/Ellipse 32.png" alt="" class="wow fadeInUpBig">
-                            </div>
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <div class="title wow jackInTheBox">
-                                    <h4>Smile Digital</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="row justify-content-center align-items-center slide">
-                            <div class="col-lg-4 col-md-4 col-sm-12  mb-5">
-                                <img src="{{ asset('frontend') }}/img/Ellipse 32.png" s alt="">
-                            </div>
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <div class="title">
-                                    <h4>Smile Digital</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+
     
                 </div>
             </div>
@@ -357,9 +267,17 @@
                     
 
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card news-card" style="border: none;">
+                        <div class="card news-card wow bounceIn" style="border: none;">
+                            <div class="date">
+                                {{-- @php
+                                    $post->cerated_at = $post->
+                                @endphp --}}
+                                <span>{{date('d', strtotime( $post->created_at))}}
+                                </span>
+                                <span> {{date('F', strtotime( $post->created_at))}}</span>
+                            </div>
                             <a href="{{ route('details.news', ['id'=>$post->id]) }}">
-                                <div class="img-card card-img-top wow bounceIn"
+                                <div class="img-card card-img-top "
                                     style="background-image:url({{ asset('posts/'.$post->image) }});">
                                 </div>
                             </a>
@@ -380,49 +298,6 @@
                     </div>
                     @endforeach
 
-
-                    {{-- <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card news-card" style="border: none;">
-                            <a href="#"><img src="{{ asset('frontend') }}/img/alexandre-debieve-FO7JIlwjOtU-unsplash.png" class="card-img-top wow bounceIn"></a>
-                            <div class="card-body">
-                                <span class="wow slideInLeft">Technology</span>
-                                <a href="#">
-                                    <h5 class="card-title wow slideInRight">Big Title 1</h5>
-                                </a>
-                                <p class="card-text wow slideInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <a href="#" class="btn wow zoomIn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card news-card-ce" style="border: none;">
-                            <a href="#"><img src="{{ asset('frontend') }}/img/christopher-burns-Kj2SaNHG-hg-unsplash.png" class="card-img-top wow bounceIn"></a>
-                            <div class="card-body">
-                                <span class="wow slideInLeft">Technology</span>
-                                <a href="#">
-                                    <h5 class="card-title wow slideInRight">Big Title 2</h5>
-                                </a>
-                                <p class="card-text wow slideInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <a href="#" class="btn wow zoomIn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card news-card" style="border: none;">
-                            <a href="#"> <img src="{{ asset('frontend') }}/img/markus-spiske-iar-afB0QQw-unsplash.png" class="card-img-top wow bounceIn"></a>
-                            <div class="card-body">
-                                <span class="wow slideInLeft">Technology</span>
-                                <a href="#">
-                                    <h5 class="card-title wow slideInRight">Big Title 3</h5>
-                                </a>
-                                <p class="card-text wow slideInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <a href="#" class="btn wow zoomIn">Read More</a>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
 
                 <div class="row text-center">
@@ -446,27 +321,12 @@
             </div>
             <div class="container-fluid  px-0">
                 <div class="partnaers owl-carousel owl-theme">
-                    {{-- <div class="item">
-                        <img src="{{ asset('frontend') }}/img/Ellipse 37.png" alt="" class="wow shake">
-                    </div>
-                    <div class="item">
-                        <img src="{{ asset('frontend') }}/img/Ellipse 38.png" alt="" class="wow shake">
-                    </div>
-                    <div class="item">
-                        <img src="{{ asset('frontend') }}/img/Ellipse 37.png" alt="" class="wow shake">
-                    </div>
-                    <div class="item">
-                        <img src="{{ asset('frontend') }}/img/Ellipse 37.png" alt="" class="wow shake">
-                    </div> --}}
-                    {{-- @foreach ($companies as $company)
-                    <div class="item">
-                        <div class="item">
-                           <a href="{{ as }}"><img src="{{ asset('company'.$company->logo) }}" alt="" class="wow shake"></a> 
-                        </div>
-                    @endforeach --}}
+
                         @foreach ($partnaers as $partnaer)
                         <div class="item">
-                            <a href="{{ $partnaer->link }}"><img src="{{ asset('partnaers/'.$partnaer->image) }}" title="{{ $partnaer->title }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
+                          <div class="part-img">
+                              <a href="{{ $partnaer->link }}" target="_blank" rel="nofollow"><img src="{{ asset('partnaers/'.$partnaer->image) }}" title="{{ $partnaer->title }}" alt="{{ $partnaer->title }}" class="wow shake"></a> 
+                          </div> 
                         </div>
                         @endforeach
                   
@@ -492,7 +352,7 @@
                             <div class="col-md-6">
                                 <div class="form-group wow lightSpeedIn">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Baraa Husain Zoroub">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -514,8 +374,10 @@
                                 class="fa fa-send-o ml-3"></i></button>
                     </form>
                 </div>
-            </div>
-        </section>
 
+            </div>
+           
+        </section>
         <!-- End Touch -->
+    
 @endsection

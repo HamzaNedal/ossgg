@@ -53,7 +53,7 @@ a:hover {
     color: #4D4D4D !important;
     font-size: 12px;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .navbar-nav .nav-item .nav-link:hover,
@@ -150,7 +150,7 @@ a:hover {
     content: '';
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.3);
     position: absolute;
     left: 0;
     top: 0;
@@ -253,13 +253,13 @@ a:hover {
 .slider.owl-carousel button.owl-dot {
     width: 13px;
     height: 13px;
-    border: 2px solid #193F99;
+    border: 2px solid #ffffff;
     border-radius: 50%;
     margin-left: 5px;
 }
 
 button.owl-dot.active {
-    background-color: #193F99;
+    background-color: #ffffff;
 }
 
 
@@ -270,7 +270,7 @@ button.owl-dot.active {
 
 .about {
     margin-top: 70px;
-    padding: 70px 0;
+    padding: 0;
 }
 
 .about .section-title h2 {
@@ -446,6 +446,12 @@ button:focus {
     padding: 30px;
 }
 
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    max-height: 257px;
+    object-fit: cover;
+}
 
 /* End Global */
 
@@ -467,7 +473,7 @@ button:focus {
 .portfolio .section-title {
     position: relative;
     z-index: 15;
-    margin-bottom: 150px;
+    margin-bottom: 80px;
 }
 
 .portfolio .section-title span {
@@ -541,8 +547,8 @@ button:focus {
 }
 
 .portfolio .portfolio-contint .custom-select option {
-    background-color: #193F99;
-    color: #fff;
+    background-color: #193F99 !important;
+    color: #fff !important;
 }
 
 button.btn.btn-warning {
@@ -590,7 +596,21 @@ button.btn.btn-warning {
     border: none;
     margin-bottom: 40px;
 }
-
+.date {
+    position: absolute;
+    left: 5%;
+    top: 3%;
+    width: 80px;
+    height: 80px;
+    background-color: #FBB03B;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #193F99;
+}
 .card-img,
 .card-img-top {
     overflow: hidden;
@@ -647,7 +667,7 @@ button.btn.btn-warning {
 /* Start Partnaers */
 
 .partnaers {
-    padding: 70px 0;
+    padding: 0;
 }
 
 .partnaers .section-title h2 {
@@ -780,8 +800,11 @@ button.btn.btn-warning {
 .footer .members ul li {
     margin-bottom: 20px;
     font-size: 14px;
-}
 
+}
+.footer .members ul li a{
+    color: white;
+}
 
 /* 
 /* End Footer */
@@ -1088,4 +1111,69 @@ a.btn.btn-warning {
     padding: 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, .125);
+}
+
+
+
+.part-img{
+    display: flex;
+    width: 333px;
+    height: 333px;
+    /* background-color: #d39e00; */
+    vertical-align: middle;
+    display: ltr;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.164);
+}
+.partnaers .item{
+    padding: 10px;
+}
+.partnaers .owl-carousel .owl-item img {
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
+    max-height: 257px;
+    object-fit: cover;
+}
+
+
+
+.select2-container--default .select2-selection--single {
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #fff !important; 
+    color: #fff !important;
+}
+.select2-container--default:focus{
+    outline: none;
+}
+.select2-container--default .select2-selection--single {
+    background-color: transparent;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff !important;
+    line-height: 28px;
+    background: #193f99 !important;
+    border-bottom: 1px solid #fff !important
+    ;
+
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #ffc107 transparent transparent transparent !important;
+    top: 21% !important;
+}
+/* 
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    min-width: 279px !important;
+  
+    width: 100% !important;
+} */
+
+span.select2.select2-container.select2-container--default{
+    width: 100% !important;
 }
