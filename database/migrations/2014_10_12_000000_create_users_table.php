@@ -28,11 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        User::Create([
-            'name'=>'admin',
-            'email'=>'admin@admin.com',
-            'password'=>Hash::make('GUFpGSd8w76H'),
-        ]);
+
         
     }
 

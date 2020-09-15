@@ -23,7 +23,7 @@ class UpdateSliderRequest extends FormRequest
      */
     public function rules()
     {
-        return[
+        return [
             'title' => 'required|string',
             'description' => 'required|string',
             'background_image' => 'sometimes|image',

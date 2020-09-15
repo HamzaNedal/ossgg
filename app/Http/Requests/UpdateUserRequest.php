@@ -24,21 +24,17 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string',
-            'email' => 'email|unique:users,email,'.$this->id,
-            'image' => 'image|nullable',
-            'gender' => 'integer',
-            'dob' => 'sometimes|date',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.$this->id,
+            'image' => 'sometimes|nullable|image',
+
         ];
     }
 
     public function prepareForValidation()
     {
-        if($this->password == null) {
+        if($this->password === null) {
             $this->request->remove('password');
-        }
-        if($this->dob == null) {
-            $this->request->remove('dob');
         }
     }
 }

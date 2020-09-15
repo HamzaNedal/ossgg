@@ -42,12 +42,12 @@ class User extends Authenticatable
 
     public function getGenderAttribute($val)
     {
-        if($val == 0){
-            return $val = 'None';
-        }elseif($val == 1){
-            return $val = 'Male';
+        if($val === 0){
+            return  'None';
+        }elseif($val === 1){
+            return 'Male';
         }else{
-            return $val = 'Female';
+            return 'Female';
         }
     }
 

@@ -24,7 +24,7 @@ class ProfileController extends Controller
              return view('backend.datatables.actions',compact('data','route'));
          })->addColumn('file',function ($data)
          {
-            return '<a href="'.asset("/files/".$data->file).'">Download File</a>';
+            return '<a target="_blank" href="'.asset("/files/".$data->file).'">Download File</a>';
          })
          ->rawColumns(['file','actions'])
          ->make(true);
@@ -52,7 +52,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'The Profile has been deleted successfully');
     }
 
-    public  function download()
+   static public function download()
     {
         $profile = Profile::orderBy('created_at', 'desc')->first();
         if(!$profile){

@@ -25,6 +25,7 @@ class CreateFormServicesTable extends Migration
             $table->unsignedBigInteger('service_id');
             $table->text('short_description')->nullable();
             $table->string('file')->nullable();
+            $table->enum('status',['0','1'])->default(0);
             
             $table->timestamps();
             $table->softDeletes();

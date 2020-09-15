@@ -57,6 +57,7 @@
                   { data: 'short_description', name: 'short_description' },
                   { data: 'country', name: 'country' },
                   { data: 'file', name: 'file' },
+                  { data: 'read', name: 'read' },
                   { data: 'created_at', name: 'created_at' },
                   {data: 'actions', name: 'actions', orderable: false, searchable: false}
               ]

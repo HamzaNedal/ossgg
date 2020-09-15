@@ -21,6 +21,7 @@
                         <th>Short Description</th>
                         <th>Country</th>
                         <th>File</th>
+                        <th>Read</th>
                         <th>Created at </th>
                         <th>Acation</th>
                     </tr>

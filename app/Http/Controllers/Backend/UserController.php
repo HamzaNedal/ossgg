@@ -95,12 +95,12 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id,ImageService $imageService)
     {
         $input = $request->except(['_token','_method']);
-        $user = User::findOrFail($id);
+         User::findOrFail($id);
         if (request()->hasfile('image')) {
             $input['image'] = $imageService->upload($input['image'],'profile');
         }
         User::where('id',$id)->update($input);
-        return redirect()->route('admin.users.index')->with('success','The user has been updated successfully');
+        return redirect()->back()->with('success','The user has been updated successfully');
     }
 
     /**
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        User::findOrFail($id);
         User::destroy($id);
         return redirect()->back()->with('success','The user has been deleted successfully');
     }

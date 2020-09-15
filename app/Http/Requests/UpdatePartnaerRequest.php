@@ -23,7 +23,7 @@ class UpdatePartnaerRequest extends FormRequest
      */
     public function rules()
     {
-        return[
+        return [
             'title' => 'required|string',
             'link' => 'required|string',
             'image' => 'sometimes|image',

@@ -33,6 +33,21 @@
     margin-left: -32px;
     z-index: -1;
 }
+#sector_of_project_id:after{
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #f00;
+  position: absolute;
+  top: 40%;
+  right: 5px;
+  content: "";
+  z-index: 98;
+ }
+ .custom-select{
+        background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAYAAABirU3bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACZJREFUeNpiYACCPwckGkAYxGYEMgyA9HkGCDBkQAfYVSCbARBgAKpZD1vniviBAAAAAElFTkSuQmCC') no-repeat right .75rem center/8px 10px ;
+}
 </style>
 @endpush
     @if (!$sliders->isEmpty())
@@ -225,7 +240,7 @@
                                     <input type="text" class="form-control" id="" name="name_of_project" placeholder="The Project Name">
                                 </div>
                                 <div class="form-group wow lightSpeedIn">
-                                    <select class="custom-select my-1 mr-sm-2" name="sector_of_project_id" id="">
+                                    <select class="custom-select my-1 mr-sm-2" name="sector_of_project_id" id="sector_of_project_id">
                                         <option selected>Sector of Project</option>
                                         @foreach ($sectors as $sector)
                                          <option value="{{ $sector->id }}">{{ $sector->name }}</option>

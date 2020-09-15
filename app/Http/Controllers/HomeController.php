@@ -67,7 +67,7 @@ class HomeController extends Controller
     public function storeContactUs(CreateContactUsRequest $request)
     {
         ContactUs::Create($request->all());
-        toastr()->success('Your request has been sent successfully', 'Success');
+        toastr()->success('Your message has been sent successfully', 'Success');
         return back();
     }
 

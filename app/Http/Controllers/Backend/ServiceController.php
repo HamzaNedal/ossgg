@@ -92,6 +92,7 @@ class ServiceController extends Controller
         return redirect()->route('admin.service.index')->with('success', 'The Service has been updated successfully');
     }
 
+  
     /**
      * Remove the specified resource from storage.
      *
@@ -112,6 +113,13 @@ class ServiceController extends Controller
     //    $serviceResquests =  ServiceRequests::get();
        return view('backend.services.service_requests.index');
     }
+    public function status(ServiceRequests $service)
+    {
+        $service->status = 1;
+        $service->save();
+        return back();
+
+    }
     protected function datatableServiceResquests(){
         $serviceResquests = ServiceRequests::get();
         $route = 'service_requests';
@@ -122,8 +130,14 @@ class ServiceController extends Controller
          })->addColumn('sector_of_project_id', function ($data){
             return $data->getSector->name;
          })->addColumn('file', function ($data){
-            return '<a href="'.asset("/files/".$data->file).'">Download File</a>';
-         })->rawColumns(['file','title','sector_of_project_id','actions'])
+            return '<a target="_blank" href="'.asset("/files/".$data->file).'">Download File</a>';
+         })->addColumn('read', function ($data){
+             if($data->status == 1):
+                 return 'Readable';
+             else:
+                 return 'Unread';
+            endif;
+         })->rawColumns(['file','read','title','sector_of_project_id','actions'])
          ->make(true);
      }
     public function destroyserviceResquests($id)

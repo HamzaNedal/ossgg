@@ -14,7 +14,10 @@
         <img src="{{ asset('profile/') }}/{{ auth()->user()->image ?? 'avatar.png' }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+        <a href="{{ route('admin.users.edit',['id'=>auth()->user()->id]) }}" class="d-block" alt='profile' title="Profile">{{ auth()->user()->name }} <i class="nav-icon fas fa-cog ml-5 mt-2"></i></a>
+        {{-- <a href="{{ route('admin.users.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-cog"></i>
+        </a> --}}
       </div>
     </div>
 
@@ -239,6 +242,7 @@
               </a>
             </li>
           </ul>
+
         </li>
       </ul>
     </nav>

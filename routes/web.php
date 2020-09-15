@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\StaticPageController;
 use App\Http\Controllers\Backend\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,22 +35,24 @@ Route::get('/news', [HomeController::class,'getNews'])->name('news');
 Route::get('/details/news/{id}', [HomeController::class,'ditailsNews'])->name('details.news');
 Route::get('/download', [ProfileController::class,'download'])->name('profile.download');
 
-
+// Route::get('/linkstorage', function () {
+//   Artisan::call('storage:link');
+// });
 
 Auth::routes(['register' => false]);
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'auth'], function () {
     Route::get('/home', [BackendHomeController::class,'index'])->name('admin.home');
-    // //User
+    //User
     // Route::get('/users', [UserController::class,'index'])->name('admin.users.index');
     // Route::get('/users/datatable', [UserController::class,'datatable'])->name('admin.users.datatable');
     // Route::get('/users/create', [UserController::class,'create'])->name('admin.users.create');
     // Route::post('/users', [UserController::class,'store'])->name('admin.users.store');
-    // Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
-    // Route::put('/users/{id}', [UserController::class,'update'])->name('admin.users.update');
+    Route::get('/users/{id}/edit', [UserController::class,'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [UserController::class,'update'])->name('admin.users.update');
     // Route::delete('/users/{id}', [UserController::class,'destroy'])->name('admin.users.destroy');
-    // //end User
+    //end User
 
     // //members
     // Route::get('/members', [MembersContrllers::class,'index'])->name('admin.member.index');
@@ -132,6 +135,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend', 'middleware' => 'au
     Route::get('/service_requests', [ServiceController::class,'serviceResquests'])->name('admin.service_requests.index');
     Route::get('/service_requests/datatable', [ServiceController::class,'datatableServiceResquests'])->name('admin.service_requests.datatable');
     Route::delete('/service_requests/{id}', [ServiceController::class,'destroyserviceResquests'])->name('admin.service_requests.destroy');
+    Route::get('/service_requests/status/{service}', [ServiceController::class,'status'])->name('admin.service_requests.status.update');
     //end services
 
     //contactUs

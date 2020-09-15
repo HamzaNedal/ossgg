@@ -14,7 +14,7 @@ class Post extends Model
     ];
     protected $casts = [
       'created_at'=>'date:Y-m-d h:m:s'
-  ];
+    ];
 
     public function category()
     {
