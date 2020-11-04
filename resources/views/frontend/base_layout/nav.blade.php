@@ -1,7 +1,7 @@
     <!-- Start Header -->
-    <div class="main-header wow bounceInUp">
+    <div class="main-header ">
         <div class="container">
-            <nav class="navbar navbar-light navbar-expand-lg navbar-template">
+            <nav class="navbar navbar-light navbar-expand-lg navbar-template " >
 
                 <a class="navbar-brand" href="#">
                     <img src="{{ asset('frontend') }}/img/logo.png" alt="">

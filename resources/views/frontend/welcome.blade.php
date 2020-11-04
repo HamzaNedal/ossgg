@@ -394,5 +394,5 @@
            
         </section>
         <!-- End Touch -->
-    
+        <button class="scrollToTop" id="scrollToTop" style="display: inline-block;"><i class="fa fa-arrow-up"></i></button>
 @endsection
